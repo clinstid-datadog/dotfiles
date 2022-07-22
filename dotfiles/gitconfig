@@ -1,0 +1,61 @@
+[user]
+    name = Chris Linstid
+    email = chris.linstid@datadoghq.com
+	signingKey = 1CA320D0D62464CD
+
+[core]
+    excludesfile = ~/.gitignore
+    hooksPath = /usr/local/dd/global_hooks
+
+[diff]
+    tool = vimdiff
+    renameLimit = 1000
+
+[difftool]
+    prompt = false
+
+[difftool "meld"]
+    trustExitCode = true
+    cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
+
+[diff]
+    tool = default-difftool
+
+[difftool "default-difftool"]
+    cmd = vim -f '+next' '+execute \"DirDiff\" argv(0) argv(1)' $LOCAL $REMOTE '+syntax off'
+
+[merge]
+    tool = vimdiff
+
+[mergetool]
+    prompt = false
+
+[mergetool "meld"]
+    trustExitCode = true
+    cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
+[filter "lfs"]
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+[pager]
+    branch = true
+[rerere]
+    enabled = true
+[push]
+    default = simple
+[alias]
+    rebase = !\"echo NOOOOOOOOOO\"
+[fetch]
+    prune = true
+[pull]
+    rebase = false
+
+[url "ssh://git@github.com/DataDog/"]
+    insteadOf = https://github.com/DataDog/
+[init]
+    defaultBranch = main
+{%@@ if not is_workspace @@%}
+[commit]
+	gpgSign = true
+{%@@ endif @@%}

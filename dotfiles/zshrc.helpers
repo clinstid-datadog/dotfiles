@@ -1,0 +1,136 @@
+function source_if_exists() {
+    if [ -f "$@" ]; then
+        source "$@"
+    fi
+}
+
+# Tags
+function create_python_tags_here {
+    if [ ! -z "$VIRTUAL_ENV" ]; then
+        ctags -R --languages=python --fields=+l --python-kinds=-iv . $VIRTUAL_ENV/lib/*
+    else
+        ctags -R --languages=python --fields=+l --python-kinds=-iv .
+    fi
+}
+
+# Git
+function gpush() {
+    current_branch=$(git rev-parse --abbrev-ref HEAD)
+    echo "Checking ${current_branch}..."
+    if [ "${current_branch}" = "master" ] || [ "${current_branch}" = "prod" ]; then
+        echo "On master or prod, not pushing!"
+        return
+    fi
+
+    git push -u origin ${current_branch}
+}
+
+function find_master_branch {
+    branch=master
+
+    if [ $(git rev-parse --verify --quiet prod) ]; then
+        branch=prod
+    fi
+
+    if [ $(git rev-parse --verify --quiet main) ]; then
+        branch=main
+    fi
+
+    echo ${branch}
+}
+
+function btm() {
+    branch=$(find_master_branch)
+
+    echo "Switching back to ${branch}..."
+
+    git switch $branch && \
+        git fetch origin && \
+        git merge origin $branch && \
+        git-clean-branches
+}
+
+function git-clean-branches {
+    for branch in $(git branch --merged | grep -v master | grep -v '^\*'); do
+        git branch -d $branch
+    done
+}
+function gpush() {
+    current_branch=$(git rev-parse --abbrev-ref HEAD)
+    echo "Checking ${current_branch}..."
+    if [ "${current_branch}" = "master" ] || [ "${current_branch}" = "prod" ]; then
+        echo "On master or prod, not pushing!"
+        return
+    fi
+
+    git push -u origin ${current_branch}
+}
+
+function fbr() {
+    local branches branch
+    branches=$(git branch --all | grep -v HEAD) &&
+        branch=$(echo "$branches" |
+        fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+        git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+function gitclean {
+    files=$(git clean -n)
+    if [ -z "$files" ]; then
+        echo "Already shiny!"
+        return
+    fi
+    echo $files
+    echo -n "Continue? (y/n) "
+    read answer
+    if [ "$answer" = "y" ]; then
+        echo "Cleaning..."
+        git clean -f
+    fi
+}
+
+function gnbs() {
+    echo "== Stashing changes =="
+    git stash
+    echo "== Switching back to master/prod =="
+    btm
+
+    gnb $@
+
+    echo "== Restoring changes =="
+    git stash pop
+}
+
+function gnb() {
+    new_branch=$1
+    if [ -z "${new_branch}" ]; then
+        echo "Missing new branch name."
+        return
+    fi
+
+    echo "== Creating new branch =="
+    git switch -c chris.linstid/${new_branch}
+}
+
+function gpom() {
+    master_branch=$(find_master_branch)
+    git pull origin ${master_branch} --no-edit
+}
+
+function gprom() {
+    master_branch=$(find_master_branch)
+    git pull origin --rebase ${master_branch} --no-edit
+}
+
+# Command to switch to source directories under ~/src
+function src {
+    cd ~/src/$1
+}
+compctl -W ~/src -/ src
+
+alias stocks='docker run -it --rm -e TZ=America/New_York -v ~/.ticker.yaml:/.ticker.yaml achannarasappa/ticker'
+
+function vault-switch {
+    export VAULT_ADDR="https://vault.$1"
+    vault token lookup 2>&1 > /dev/null || vault login -method=oidc -no-print && echo "Switched to $VAULT_ADDR"
+}

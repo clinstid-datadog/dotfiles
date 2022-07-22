@@ -1,0 +1,92 @@
+# Language
+export LC_ALL=en_US.UTF-8
+export LANG=en_us.UTF-8
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="frisk"
+
+zstyle ':omz:update' mode auto      # update automatically without asking
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git kube-ps1 bazel)
+
+source $ZSH/oh-my-zsh.sh
+
+# Load helper functions
+source ~/.zshrc.helpers
+source_if_exists ~/.zshrc.aliases
+source_if_exists ~/.fzf.zsh
+
+case "$OSTYPE" in
+    linux*)
+        source_if_exists ~/.zshrc.linux
+        ;;
+    darwin*)
+        source_if_exists ~/.zshrc.macos
+        ;;
+esac
+
+source_if_exists ~/.zshrc.tokens
+source_if_exists ~/.zshrc.dd
+
+# Enable colors
+autoload -U colors && colors
+
+# Editor
+export EDITOR="vim"
+
+# set vi editing mode
+bindkey -v
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+
+# History
+
+# Appends every command to the history file once it is executed
+setopt inc_append_history
+
+# Reloads the history whenever you use it
+setopt share_history
+
+
+# Add dirs to path
+export PATH="$HOME/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH=${HOME}/src/team-aaa-internal-tools/scripts:${PATH}
+export PATH="$HOME/go/bin:$PATH"
+
+export DATADOG_SHELL_USER="chris.linstid"
+
+export LESS="--no-init --quit-if-one-screen -R"
+
+if [ -n "$KUBE_PS1_FILE" ]; then
+    PROMPT='$(kube_ps1)'$PROMPT
+fi
+alias py2='source /home/chris.linstid/go/src/github.com/DataDog/dogweb/venv2/bin/activate'
+alias py3='source /home/chris.linstid/go/src/github.com/DataDog/dogweb/venv3/bin/activate'
+
+alias vim=nvim
+
+PROMPT_EOL_MARK=""

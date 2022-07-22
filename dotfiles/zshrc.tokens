@@ -1,0 +1,6 @@
+# GitLab
+export GITLAB_TOKEN=$(get-secret gitlab-token)
+
+# github
+export github_personal_token=$(get-secret github-personal-token)
+export GITHUB_ACCESS_TOKEN=${github_personal_token}

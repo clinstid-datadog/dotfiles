@@ -1,0 +1,13 @@
+venv
+.venv
+tags
+.sw[op]
+.python-version
+.ignore
+tags.*
+.vim
+cp.out
+cover.html
+pyrightconfig.json
+*.egg-info
+__pycache__

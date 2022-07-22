@@ -1,0 +1,128 @@
+# google-cloud-sdk brew caveat
+source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+# BEGIN ANSIBLE MANAGED BLOCK
+# Add homebrew binaries to the path.
+export PATH="/opt/homebrew/bin:${PATH?}"
+
+# Force certain more-secure behaviours from homebrew
+export HOMEBREW_NO_INSECURE_REDIRECT=1
+export HOMEBREW_CASK_OPTS=--require-sha
+export HOMEBREW_DIR=/opt/homebrew
+export HOMEBREW_BIN=/opt/homebrew/bin
+
+# Load ruby shims
+eval "$(rbenv init -)"
+
+# Prefer GNU binaries to Macintosh binaries.
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+
+# Add AWS CLI to PATH
+export PATH="/opt/homebrew/opt/awscli@1/bin:$PATH"
+
+# Add datadog devtools binaries to the PATH
+export PATH="${HOME?}/dd/devtools/bin:${PATH?}"
+
+# Point GOPATH to our go sources
+export GOPATH="${HOME?}/go"
+
+# Add binaries that are go install-ed to PATH
+export PATH="${GOPATH?}/bin:${PATH?}"
+
+# Point DATADOG_ROOT to ~/dd symlink
+export DATADOG_ROOT="${HOME?}/dd"
+
+# Tell the devenv vm to mount $GOPATH/src rather than just dd-go
+export MOUNT_ALL_GO_SRC=1
+
+# store key in the login keychain instead of aws-vault managing a hidden keychain
+export AWS_VAULT_KEYCHAIN_NAME=login
+
+# tweak session times so you don't have to re-enter passwords every 5min
+export AWS_SESSION_TTL=24h
+export AWS_ASSUME_ROLE_TTL=1h
+
+# Helm switch from storing objects in kubernetes configmaps to
+# secrets by default, but we still use the old default.
+export HELM_DRIVER=configmap
+
+# Go 1.16+ sets GO111MODULE to off by default with the intention to
+# remove it in Go 1.18, which breaks projects using the dep tool.
+# https://blog.golang.org/go116-module-changes
+export GO111MODULE=auto
+export GOPRIVATE=github.com/DataDog
+# END ANSIBLE MANAGED BLOCK
+
+# AppGate
+export GOVCLOUD_APPGATE_URL="appgate://sdp.fed.d.dog/eyJzcGEiOnsibW9kZSI6IlRDUCIsIm5hbWUiOiJkZWZhdWx0Iiwia2V5IjoiMGI4NDMyZTEyYWQ5Yzk1YjY4ZDRlOTAwM2YzMDFkMmMxYTJkN2NlY2E5ZjhmZDM5MDQxOTljMjgwN2MyNjczNCJ9LCJjYUZpbmdlcnByaW50IjoiYzQ2YjA3NGU4OGJmNTk2MzlmNGVjMDFiMTIwNDE2ZjcyNTExYzM1ZmQ0YmY5M2M2Y2I3NDIyNDVjNmM2MzEwYyIsImlkZW50aXR5UHJvdmlkZXJOYW1lIjoiZ29vZ2xlIn0="
+export DATADOG_APPGATE_URL="appgate://appgate.datadoghq.com/eyJjYUZpbmdlcnByaW50IjoiN2MxMTEwNWZkNzAzNWYzMjE5NTdiYjdhZDQ0ZTIwZjc0YTZkZTNiYWM3ZWIzZTkzNWJmNjAzMDAzOTI4NmYwYyIsImlkZW50aXR5UHJvdmlkZXJOYW1lIjoiTG9naW4gV2l0aCBHb29nbGUifQ=="
+alias appgatefed="osascript -e 'quit app \"AppGate SDP\"' || true && sleep 1 && open $GOVCLOUD_APPGATE_URL"
+alias appgatedd="osascript -e 'quit app \"AppGate SDP\"' || true && sleep 1 && open $DATADOG_APPGATE_URL"
+
+alias grep=ggrep
+
+# pyenv
+eval "$(pyenv init --path)"
+eval "$(pyenv init - --no-rehash)"
+eval "$(pyenv virtualenv-init -)"
+
+source_if_exists /opt/homebrew/share/zsh/site-functions/_ddtool
+source_if_exists /opt/homebrew/share/zsh/site-functions/_dctx
+
+export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+
+export LESS="--no-init --quit-if-one-screen -r"
+
+function save-secret {
+    key=$1
+    secret=$2
+
+    security find-generic-password -a ${USER} -s "$key" -w 2>&1 >/dev/null && \
+        security delete-generic-password -s "$key" 2>&1 >/dev/null
+    security add-generic-password -a ${USER} -s "$key" -w "$secret"
+}
+
+function get-secret {
+    key=$1
+    secret=$2
+
+    security find-generic-password -a ${USER} -s "$key" -w
+}
+
+# ssh
+# export SSH_ENV="$HOME/.ssh/environment"
+# function start_ssh_agent() {
+#     # echo "Initialising new SSH agent..."
+#     ssh-agent -s | sed 's/^echo/#echo/' > ${SSH_ENV}
+#     # echo succeeded
+#     chmod 600 ${SSH_ENV}
+#     . ${SSH_ENV} > /dev/null
+#     ssh-add -kq
+#     ssh-add -kq ~/.ssh/clinstid-datadog_github_rsa
+# }
+
+# Source SSH settings, if applicable
+# function load_ssh_session() {
+#     if [ -f "${SSH_ENV}" ]; then
+#         . ${SSH_ENV} > /dev/null
+#         #ps ${SSH_AGENT_PID} doesn't work under cywgin
+#         ps aux ${SSH_AGENT_PID} | grep 'ssh-agent -s$' > /dev/null || {
+#             start_ssh_agent;
+#         }
+# else
+#     start_ssh_agent;
+#     fi
+# }
+
+# load_ssh_session
+
+
+# Kubernetes
+export HELM_HOME=$HOME/.helm
+KUBE_PS1_FILE="/usr/local/opt/kube-ps1/share/kube-ps1.sh"
+if [ -f "${KUBE_PS1_FILE}" ]; then
+    source ${KUBE_PS1_FILE}
+fi
+
+export GPG_TTY=$(tty)

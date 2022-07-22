@@ -1,0 +1,25 @@
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+function save-secret {
+    # not implemented yet
+    echo ""
+}
+function get-secret {
+    # not implemented yet
+    echo ""
+}
+
+function pt2 {
+    pushd ~/dd/dogweb
+    source venv2/bin/activate
+    venv2/bin/pytest -vv --with-gevent --with-pylons=./workspace.ini $@
+    popd
+}
+
+function pt3 {
+    pushd ~/dd/dogweb
+    source venv3/bin/activate
+    venv3/bin/pytest --with-gevent $@
+    popd
+}

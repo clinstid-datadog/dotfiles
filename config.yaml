@@ -1,0 +1,89 @@
+config:
+  backup: true
+  banner: false
+  create: true
+  dotpath: dotfiles
+  keepdot: false
+  link_dotfile_default: nolink
+  link_on_import: nolink
+  longkey: false
+variables:
+  is_workspace: false
+dotfiles:
+  f_zshrc:
+    src: zshrc
+    dst: ~/.zshrc
+  f_zshrc.macos:
+    src: zshrc.macos
+    dst: ~/.zshrc.macos
+    chmod: '600'
+  f_zshrc.helpers:
+    src: zshrc.helpers
+    dst: ~/.zshrc.helpers
+  f_zshrc.aliases:
+    src: zshrc.aliases
+    dst: ~/.zshrc.aliases
+  f_zshrc.dd:
+    src: zshrc.dd
+    dst: ~/.zshrc.dd
+  f_zshrc.tokens:
+    src: zshrc.tokens
+    dst: ~/.zshrc.tokens
+  d_nvim:
+    src: config/nvim
+    dst: ~/.config/nvim
+  f_vimrc:
+    src: vimrc
+    dst: ~/.vimrc
+  d_ftplugin:
+    src: vim/ftplugin
+    dst: ~/.vim/ftplugin
+  f_vimrc-coc:
+    src: vimrc-coc
+    dst: ~/.vimrc-coc
+  f_zshrc.linux:
+    src: zshrc.linux
+    dst: ~/.zshrc.linux
+  f_gitconfig:
+    src: gitconfig
+    dst: ~/.gitconfig
+  f_gitignore:
+    src: gitignore
+    dst: ~/.gitignore
+  f_tmux.conf:
+    src: tmux.conf
+    dst: ~/.tmux.conf
+profiles:
+  common:
+    dotfiles:
+    - f_zshrc
+    - f_zshrc.helpers
+    - f_zshrc.aliases
+    - f_zshrc.dd
+    - f_zshrc.tokens
+    - d_nvim
+    - f_vimrc
+    - d_ftplugin
+    - f_vimrc-coc
+    - f_gitconfig
+    - f_gitignore
+    - f_tmux.conf
+  macos:
+    dotfiles:
+    - f_zshrc.macos
+  linux:
+    dotfiles:
+    - f_zshrc.linux
+  warmachine:
+    include:
+    - common
+    - macos
+  workspace:
+    include:
+    - common
+    - linux
+    variables:
+      is_workspace: true
+  chris-linstid-0:
+    include:
+    - workspace
