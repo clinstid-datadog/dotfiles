@@ -55,7 +55,5 @@
     insteadOf = https://github.com/DataDog/
 [init]
     defaultBranch = main
-{%@@ if not is_workspace @@%}
 [commit]
 	gpgSign = true
-{%@@ endif @@%}
