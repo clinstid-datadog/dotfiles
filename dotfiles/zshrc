@@ -84,9 +84,6 @@ export LESS="--no-init --quit-if-one-screen -R"
 if [ -n "$KUBE_PS1_FILE" ]; then
     PROMPT='$(kube_ps1)'$PROMPT
 fi
-alias py2='source /home/chris.linstid/go/src/github.com/DataDog/dogweb/venv2/bin/activate'
-alias py3='source /home/chris.linstid/go/src/github.com/DataDog/dogweb/venv3/bin/activate'
-
 alias vim=nvim
 
 PROMPT_EOL_MARK=""
