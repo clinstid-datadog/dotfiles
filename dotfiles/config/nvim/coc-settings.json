@@ -102,5 +102,11 @@
     "venv"
   ],
   "python.linting.pylintEnabled": true,
-  "python.linting.flake8Enabled": true
+  "python.linting.flake8Enabled": true,
+  "hover.floatConfig": {
+    "close": true
+  },
+  "suggest.floatConfig": {
+    "close": true
+  }
 }
