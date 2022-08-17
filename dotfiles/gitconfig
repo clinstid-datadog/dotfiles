@@ -12,17 +12,13 @@
     renameLimit = 1000
 
 [difftool]
-    prompt = false
-
-[difftool "meld"]
-    trustExitCode = true
-    cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
+    prompt = true
 
 [diff]
-    tool = default-difftool
+    tool = nvimdiff
 
-[difftool "default-difftool"]
-    cmd = vim -f '+next' '+execute \"DirDiff\" argv(0) argv(1)' $LOCAL $REMOTE '+syntax off'
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 
 [merge]
     tool = vimdiff
