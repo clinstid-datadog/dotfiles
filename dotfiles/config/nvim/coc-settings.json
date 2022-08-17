@@ -108,5 +108,6 @@
   },
   "suggest.floatConfig": {
     "close": true
-  }
+  },
+  "pyright.enable": true
 }

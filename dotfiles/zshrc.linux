@@ -37,3 +37,5 @@ function pt3 {
 alias psqlws="psql postgres://dog:dog@localhost:15433/dogdata"
 export DOGWEB_DEFAULT_CONFIG_PATH=$DATADOG_ROOT/dogweb/workspace.ini
 export DD_TRACE_ENABLED=false
+export DATADOG_TRACE_ENABLED=false
+alias ag="ag --no-affinity"

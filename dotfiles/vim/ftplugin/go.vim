@@ -10,9 +10,9 @@ let b:did_ftplugin = 1
 " nnoremap <leader>gt :GoTest<cr>
 " nnoremap <leader>gr :GoTest<cr>
 " autocmd BufWritePre *.go :silent !goimports -w %
-nnoremap <leader>gi :silent !goimports -w %<cr>
-nnoremap <leader>gf :silent !go fmt %<cr>
-nnoremap <leader>gt :!go test %<cr>
+nnoremap <leader>gi :GoImports<cr>
+nnoremap <leader>gf :GoFmt<cr>
+nnoremap <leader>gt :GoTest<cr>
 
 setlocal shiftwidth=4
 setlocal tabstop=4
