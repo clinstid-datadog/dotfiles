@@ -30,6 +30,11 @@ plugins=(git kube-ps1 bazel docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
+if [ ! -d "$HOME/.fzf" ]; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+fi
+
 # Load helper functions
 source ~/.zshrc.helpers
 source_if_exists ~/.zshrc.aliases

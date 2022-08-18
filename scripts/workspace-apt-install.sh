@@ -16,9 +16,12 @@ sudo apt-get -y install \
     socat \
     telnet \
     tmux \
-    elinks
+    elinks \
+    bash-completion
 
 pushd /tmp
 curl -LO https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-linux64.deb
 sudo dpkg -i nvim-linux64.deb
 popd
+
+sudo unminimize

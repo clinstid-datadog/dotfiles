@@ -5,7 +5,6 @@
 
 [core]
     excludesfile = ~/.gitignore
-    hooksPath = /usr/local/dd/global_hooks
 
 [diff]
     tool = vimdiff
