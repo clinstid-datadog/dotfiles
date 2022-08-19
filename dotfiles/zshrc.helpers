@@ -17,10 +17,12 @@ function create_python_tags_here {
 function gpush() {
     current_branch=$(git rev-parse --abbrev-ref HEAD)
     echo "Checking ${current_branch}..."
-    if [ "${current_branch}" = "master" ] || [ "${current_branch}" = "prod" ]; then
-        echo "On master or prod, not pushing!"
-        return
-    fi
+    for main_branch in master prod main; do
+        if [ "${current_branch}" = "$main_branch" ]; then
+            echo "On $main_branch branch, not pushing!"
+            return
+        fi
+    done
 
     git push -u origin ${current_branch}
 }
@@ -54,16 +56,6 @@ function git-clean-branches {
     for branch in $(git branch --merged | grep -v master | grep -v '^\*'); do
         git branch -d $branch
     done
-}
-function gpush() {
-    current_branch=$(git rev-parse --abbrev-ref HEAD)
-    echo "Checking ${current_branch}..."
-    if [ "${current_branch}" = "master" ] || [ "${current_branch}" = "prod" ]; then
-        echo "On master or prod, not pushing!"
-        return
-    fi
-
-    git push -u origin ${current_branch}
 }
 
 function fbr() {
