@@ -17,7 +17,8 @@ sudo apt-get -y install \
     telnet \
     tmux \
     elinks \
-    bash-completion
+    bash-completion \
+    exuberant-ctags
 
 pushd /tmp
 curl -LO https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-linux64.deb
