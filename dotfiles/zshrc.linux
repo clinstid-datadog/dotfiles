@@ -40,3 +40,18 @@ export DD_TRACE_ENABLED=false
 export DATADOG_TRACE_ENABLED=false
 alias ag="ag --no-affinity"
 export DD_PROFILING_API_TIMEOUT=0.001
+
+function update-dogweb {
+    pushd ~/dd/dogweb
+    set -e
+    echo "Updating python 2 deps in background"
+    rake "python:get_deps[2]" 2>&1 > /tmp/py2-update.log &
+    echo "Updating python 3 deps in background"
+    rake "python:get_deps[3]" 2>&1 > /tmp/py3-update.log &
+    wait
+    echo "Done updating deps!"
+    rake upgrade_db
+    set +e
+    popd
+}
+
