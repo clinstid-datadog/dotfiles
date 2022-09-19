@@ -53,6 +53,9 @@ dotfiles:
   f_tmux.conf:
     src: tmux.conf
     dst: ~/.tmux.conf
+  f_toprc:
+    src: config/procps/toprc
+    dst: ~/.config/procps/toprc
 profiles:
   common:
     dotfiles:
@@ -74,6 +77,7 @@ profiles:
   linux:
     dotfiles:
     - f_zshrc.linux
+    - f_toprc
   warmachine:
     include:
     - common
