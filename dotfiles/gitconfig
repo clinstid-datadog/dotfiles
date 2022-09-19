@@ -52,3 +52,5 @@
     defaultBranch = main
 [commit]
 	gpgSign = true
+[url "git@github.com:DataDog"]
+	insteadOf = https://github.com/DataDog
