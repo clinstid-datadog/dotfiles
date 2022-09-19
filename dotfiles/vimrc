@@ -343,11 +343,11 @@ if has("gui_running")
     " let g:airline_theme='gruvbox'
 
     " jellybeans stuff
-    let g:jellybeans_overrides = {
-                \    'background': { 'guibg': '000000' },
-                \}
-     colorscheme jellybeans
-     let g:airline_theme='jellybeans'
+    " let g:jellybeans_overrides = {
+    "             \    'background': { 'guibg': '000000' },
+    "             \}
+    "  colorscheme jellybeans
+    "  let g:airline_theme='jellybeans'
      "let g:airline_theme='serene'
 
     " darkspace
@@ -369,24 +369,26 @@ else
     set fillchars="vert:\│"
     " Dark colors
     set background=dark
-    "let g:PaperColor_Theme_Options = {
-                "\   'theme': {
-                "\     'default': {
-                "\       'transparent_background': 1
-                "\     }
-                "\   }
-                "\ }
-    "colorscheme PaperColor
+    let g:PaperColor_Theme_Options = {
+                \   'theme': {
+                \     'default': {
+                \       'transparent_background': 1
+                \     }
+                \   }
+                \ }
+    colorscheme PaperColor
+    hi SignColumn guibg=none
+    let g:airline_theme='serene'
 
     " jellybeans settings
-    let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
-    if has('termguicolors') && &termguicolors
-        let g:jellybeans_overrides['background']['guibg'] = 'none'
-    endif
+    " let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
+    " if has('termguicolors') && &termguicolors
+    "     let g:jellybeans_overrides['background']['guibg'] = 'none'
+    " endif
 
-    colorscheme jellybeans
-    let g:airline_theme='jellybeans'
-    let g:airline_powerline_fonts = 1
+    " colorscheme jellybeans
+    " let g:airline_theme='jellybeans'
+    " let g:airline_powerline_fonts = 1
     "let g:airline_theme='serene'
 
     " darkspace
@@ -759,5 +761,6 @@ augroup END
 
 " neovim 0.6 changed mapping for Y to y$
 nmap Y yy
+
 
 " set timeoutlen=1000 ttimeoutlen=0
