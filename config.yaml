@@ -91,3 +91,9 @@ profiles:
   chris-linstid-0:
     include:
     - workspace
+  chris-linstid-green-0:
+    include:
+    - workspace
+  chris-linstid-blue-0:
+    include:
+    - workspace
