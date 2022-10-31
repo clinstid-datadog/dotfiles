@@ -1,4 +1,7 @@
 #!/bin/bash
+curl -o /tmp/install-oh-my-zsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+KEEP_ZSHRC=yes sh /tmp/install-oh-my-zsh.sh
+
 sudo apt -y update
 
 sudo apt-get -y install \
