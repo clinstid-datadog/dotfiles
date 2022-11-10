@@ -312,24 +312,21 @@ if has("gui_running")
     set noerrorbells visualbell t_vb=
     autocmd GUIEnter * set visualbell t_vb=
     set guicursor=a:blinkon0
-    set guifont=Hack:h12
-    "if has("gui_macvim")
-        "set guifont=Hack\ Nerd\ Font:h12
-    "else
-         "set guifont=Ubuntu\ Mono\ 11
-        "set guifont=Hack\ 9
-    "endif
+    set guifont=Hack:h14
     " Dark colors
     set background=dark
     " let g:PaperColor_Theme_Options = {
     "             \   'theme': {
-    "             \     'default': {
-    "             \       'transparent_background': 1
+    "             \     'default.dark': {
     "             \     }
     "             \   }
     "             \ }
     "  colorscheme PaperColor
-    "  let g:airline_theme='papercolor'
+    "  let g:airline_theme='serene'
+
+    " hi Normal guibg=black
+    " hi SignColumn guibg=black
+    " hi LineNr guibg=black
 
     " Light colors
     " set background=light
@@ -343,17 +340,18 @@ if has("gui_running")
     " let g:airline_theme='gruvbox'
 
     " jellybeans stuff
-    let g:jellybeans_overrides = {
-                \    'background': { 'guibg': '000000' },
-                \}
-     colorscheme jellybeans
-     let g:airline_theme='jellybeans'
+    " let g:jellybeans_overrides = {
+                " \    'background': { 'guibg': '000000' },
+                " \}
+     " colorscheme jellybeans
+     " let g:airline_theme='jellybeans'
+     " let g:airline_powerline_fonts = 1
      " let g:airline_theme='serene'
 
     " darkspace
-    "let g:darkspace_italics = 1
-    "colorscheme darkspace
-    "let g:airline_theme='base16'
+    let g:darkspace_italics = 1
+    colorscheme darkspace
+    let g:airline_theme='serene'
 
      "colorscheme base16-black-metal
      "let g:airline_theme='serene'
@@ -364,21 +362,20 @@ if has("gui_running")
     " copy and paste to system clipboard
     imap <C-S-v> <C-r>+
     vmap <C-S-c> "+y
+    let g:airline_powerline_fonts = 1
 else
     set termguicolors
     set fillchars="vert:\│"
     " Dark colors
     set background=dark
-    " let g:PaperColor_Theme_Options = {
-    "             \   'theme': {
-    "             \     'default': {
-    "             \       'transparent_background': 1
-    "             \     }
-    "             \   }
-    "             \ }
-    " colorscheme PaperColor
-    " hi SignColumn guibg=none
-    " let g:airline_theme='serene'
+    "let g:PaperColor_Theme_Options = {
+                "\   'theme': {
+                "\     'default': {
+                "\       'transparent_background': 1
+                "\     }
+                "\   }
+                "\ }
+    "colorscheme PaperColor
 
     " jellybeans settings
     let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
@@ -386,15 +383,15 @@ else
         let g:jellybeans_overrides['background']['guibg'] = 'none'
     endif
 
-    colorscheme jellybeans
-    let g:airline_theme='jellybeans'
-    let g:airline_powerline_fonts = 1
+    " colorscheme jellybeans
+    " let g:airline_theme='jellybeans'
+    " let g:airline_powerline_fonts = 1
     "let g:airline_theme='serene'
 
     " darkspace
-    "let g:darkspace_italics = 1
-    "colorscheme darkspace
-    "let g:airline_theme='darkspace'
+    let g:darkspace_italics = 1
+    colorscheme darkspace
+    let g:airline_theme='serene'
 
     " gruvbox overrides
     " let g:gruvbox_contrast_dark='hard'
@@ -691,6 +688,8 @@ nmap <leader>ls :call Light()<cr>
 nmap <leader>ds :call Dark()<cr>
 
 command! ProjectFiles execute 'GFiles -c -o' s:find_git_root()
+command! -nargs=* Rag
+  \ call fzf#vim#ag(<q-args>, s:find_git_root(), g:fzf#vim#with_preview())
 
 nmap <C-p> :ProjectFiles<cr>
 nmap <leader>toc :GenTocGFM<cr>
@@ -698,7 +697,8 @@ nmap <leader>toc :GenTocGFM<cr>
 set formatoptions=tcroqln
 nnoremap <leader>k :exe 'Grg!' expand('<cword>')<cr>
 
-nnoremap <leader>rg :<C-u>ProjectRootExe Rg<cr>
+" nnoremap <leader>rg :<C-u>ProjectRootExe Rg<cr>
+nnoremap <silent> <Leader>ag :Rag <C-R><C-W><CR>
 
 nnoremap <leader>nb Ofrom nose.tools import set_trace; set_trace()<esc>
 
@@ -762,5 +762,6 @@ augroup END
 " neovim 0.6 changed mapping for Y to y$
 nmap Y yy
 
+nnoremap <leader>td "=strftime("# %F")<cr>P
 
 " set timeoutlen=1000 ttimeoutlen=0

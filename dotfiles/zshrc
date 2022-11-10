@@ -93,3 +93,6 @@ fi
 alias vim=nvim
 
 PROMPT_EOL_MARK=""
+
+# Remove hooksPath from gitconfig
+(sed -i '' '/hooksPath = \/usr\/local\/dd\/global_hooks/d' ~/.gitconfig &)

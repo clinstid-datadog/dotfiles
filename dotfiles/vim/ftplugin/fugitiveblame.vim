@@ -1,4 +1,2 @@
-set nocursorline
-set nocursorcolumn
-set symaxcol=80
-syntax off
+setlocal nocursorcolumn
+setlocal synmaxcol=120

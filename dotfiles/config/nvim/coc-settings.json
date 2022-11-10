@@ -1,5 +1,4 @@
 {
-  "suggest.noselect": true,
   "coc.preferences.extensionUpdateCheck": "weekly",
   "markdownlint.config": {
     "line_length": false,

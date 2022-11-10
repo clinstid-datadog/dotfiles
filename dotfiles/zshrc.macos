@@ -57,8 +57,8 @@ export GOPRIVATE=github.com/DataDog
 # AppGate
 export GOVCLOUD_APPGATE_URL="appgate://sdp.fed.d.dog/eyJzcGEiOnsibW9kZSI6IlRDUCIsIm5hbWUiOiJkZWZhdWx0Iiwia2V5IjoiMGI4NDMyZTEyYWQ5Yzk1YjY4ZDRlOTAwM2YzMDFkMmMxYTJkN2NlY2E5ZjhmZDM5MDQxOTljMjgwN2MyNjczNCJ9LCJjYUZpbmdlcnByaW50IjoiYzQ2YjA3NGU4OGJmNTk2MzlmNGVjMDFiMTIwNDE2ZjcyNTExYzM1ZmQ0YmY5M2M2Y2I3NDIyNDVjNmM2MzEwYyIsImlkZW50aXR5UHJvdmlkZXJOYW1lIjoiZ29vZ2xlIn0="
 export DATADOG_APPGATE_URL="appgate://appgate.datadoghq.com/eyJjYUZpbmdlcnByaW50IjoiN2MxMTEwNWZkNzAzNWYzMjE5NTdiYjdhZDQ0ZTIwZjc0YTZkZTNiYWM3ZWIzZTkzNWJmNjAzMDAzOTI4NmYwYyIsImlkZW50aXR5UHJvdmlkZXJOYW1lIjoiTG9naW4gV2l0aCBHb29nbGUifQ=="
-alias appgatefed="osascript -e 'quit app \"AppGate SDP\"' || true && sleep 1 && open $GOVCLOUD_APPGATE_URL"
-alias appgatedd="osascript -e 'quit app \"AppGate SDP\"' || true && sleep 1 && open $DATADOG_APPGATE_URL"
+alias appgatefed="osascript -e 'quit app \"AppGate SDP\"' || true && sleep 1 && open $GOVCLOUD_APPGATE_URL && osascript -e 'tell application \"AppGate SDP\"' -e 'activate' -e 'end tell'"
+alias appgatedd="osascript -e 'quit app \"AppGate SDP\"' || true && sleep 1 && open $DATADOG_APPGATE_URL && osascript -e 'tell application \"AppGate SDP\"' -e 'activate' -e 'end tell'"
 
 alias grep=ggrep
 
@@ -117,7 +117,6 @@ function get-secret {
 
 # load_ssh_session
 
-
 # Kubernetes
 export HELM_HOME=$HOME/.helm
 KUBE_PS1_FILE="/usr/local/opt/kube-ps1/share/kube-ps1.sh"
@@ -126,3 +125,14 @@ if [ -f "${KUBE_PS1_FILE}" ]; then
 fi
 
 export GPG_TTY=$(tty)
+
+function today {
+    dir="$HOME/Notes/Work Log/$(date +"%Y")"
+    file="$dir/$(date -I).md"
+    mkdir -p "$dir"
+    if [ ! -f "$file" ]; then
+        echo "# $(date -I)" > "$file"
+        echo "" >> "$file"
+    fi
+    vim $file
+}

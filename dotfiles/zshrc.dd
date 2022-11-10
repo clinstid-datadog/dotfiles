@@ -12,26 +12,26 @@ function load_client_test_env() {
 }
 
 function load_staging_env() {
-    export DATADOG_API_KEY=$(get-secret dd-staging-app-key)
-    export DATADOG_APP_KEY=$(get-secret dd-staging-api-key)
+    export DATADOG_API_KEY=$(get-secret dd-staging-api-key)
+    export DATADOG_APP_KEY=$(get-secret dd-staging-app-key)
     export DATADOG_HOST="https://app.datad0g.com"
 }
 
 function load_ddstaging_env() {
-    export DATADOG_API_KEY=$(get-secret dd-ddstaging-app-key)
-    export DATADOG_APP_KEY=$(get-secret dd-ddstaging-api-key)
+    export DATADOG_API_KEY=$(get-secret dd-ddstaging-api-key)
+    export DATADOG_APP_KEY=$(get-secret dd-ddstaging-app-key)
     export DATADOG_HOST="https://api.datadoghq.com"
 }
 
 function load_prod_env() {
-    export DATADOG_API_KEY=$(get-secret dd-prod-app-key)
-    export DATADOG_APP_KEY=$(get-secret dd-prod-api-key)
+    export DATADOG_API_KEY=$(get-secret dd-prod-api-key)
+    export DATADOG_APP_KEY=$(get-secret dd-prod-app-key)
     export DATADOG_HOST="https://api.datadoghq.com"
 }
 
 function load_prod_env_eu() {
-    export DATADOG_API_KEY=$(get-secret dd-prod-eu-app-key)
-    export DATADOG_APP_KEY=$(get-secret dd-prod-eu-api-key)
+    export DATADOG_API_KEY=$(get-secret dd-prod-eu-api-key)
+    export DATADOG_APP_KEY=$(get-secret dd-prod-eu-app-key)
     export DATADOG_HOST="https://api.datadoghq.eu"
 }
 
