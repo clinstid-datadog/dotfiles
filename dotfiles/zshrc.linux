@@ -10,8 +10,8 @@ function get-secret {
     echo ""
 }
 
-alias py2='source /home/chris.linstid/go/src/github.com/DataDog/dogweb/venv2/bin/activate'
-alias py3='source /home/chris.linstid/go/src/github.com/DataDog/dogweb/venv3/bin/activate'
+alias py2='source $HOME/go/src/github.com/DataDog/dogweb/venv2/bin/activate'
+alias py3='source $HOME/go/src/github.com/DataDog/dogweb/venv3/bin/activate'
 
 function pt2 {
     pushd ~/dd/dogweb
