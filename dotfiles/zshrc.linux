@@ -36,12 +36,14 @@ function pt3 {
 
 alias psqlws="psql postgres://dog:dog@localhost:15433/dogdata"
 alias cqlshws="docker exec -it cassandra cqlsh"
+alias ag="ag --no-affinity"
 
+# Workspace env var overrides
 export DOGWEB_DEFAULT_CONFIG_PATH=$DATADOG_ROOT/dogweb/workspace.ini
 export DD_TRACE_ENABLED=false
 export DATADOG_TRACE_ENABLED=false
-alias ag="ag --no-affinity"
 export DD_PROFILING_API_TIMEOUT=0.001
+export STATSD_URL=unix:///var/run/datadog-agent/statsd.sock
 
 function update-dogweb {
     pushd ~/dd/dogweb
