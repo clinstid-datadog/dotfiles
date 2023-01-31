@@ -56,7 +56,7 @@ source_if_exists ~/.zshrc.dd
 autoload -U colors && colors
 
 # Editor
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # set vi editing mode
 bindkey -v
@@ -93,6 +93,3 @@ fi
 alias vim=nvim
 
 PROMPT_EOL_MARK=""
-
-# Remove hooksPath from gitconfig
-(sed -i '' '/hooksPath = \/usr\/local\/dd\/global_hooks/d' ~/.gitconfig &)

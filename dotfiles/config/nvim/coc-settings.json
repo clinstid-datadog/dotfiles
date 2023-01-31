@@ -103,11 +103,6 @@
   ],
   "python.linting.pylintEnabled": true,
   "python.linting.flake8Enabled": true,
-  "hover.floatConfig": {
-    "close": true
-  },
-  "suggest.floatConfig": {
-    "close": true
-  },
-  "pyright.enable": true
+  "pyright.enable": true,
+  "suggest.noselect": true
 }

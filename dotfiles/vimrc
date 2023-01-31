@@ -24,13 +24,15 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'jlanzarotta/bufexplorer'
 
 " color schemes
-Plug 'clinstid/jellybeans.vim'
+" Plug 'clinstid/jellybeans.vim'
+Plug 'nanotech/jellybeans.vim'
 Plug 'clinstid/papercolor-theme.vim'
 Plug 'clinstid/vim-darkspace'
 Plug 'clinstid/vylight.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomasiser/vim-code-dark'
 Plug 'wojciechkepka/vim-github-dark'
+Plug 'tomasr/molokai'
 
 " markdown support
 Plug 'godlygeek/tabular'
@@ -171,8 +173,7 @@ call plug#end()
 
 " always show status bar
 set laststatus=2
-"set statusline=%F%=%{fugitive#statusline()}\ (%{strlen(&ft)?&ft:'?'},%{&fenc},%{&ff})\ \ %-9.(%l,%c%V%)\ \ %<%P
-"hi StatusLine ctermbg=blue ctermfg=darkyellow
+" set statusline=%F%=%{fugitive#statusline()}\ (%{strlen(&ft)?&ft:'?'},%{&fenc},%{&ff})\ \ %-9.(%l,%c%V%)\ \ %<%P
 
 " show stats in the command line
 set ruler
@@ -340,21 +341,21 @@ if has("gui_running")
     " let g:airline_theme='gruvbox'
 
     " jellybeans stuff
-    " let g:jellybeans_overrides = {
-                " \    'background': { 'guibg': '000000' },
-                " \}
-     " colorscheme jellybeans
-     " let g:airline_theme='jellybeans'
-     " let g:airline_powerline_fonts = 1
-     " let g:airline_theme='serene'
+    let g:jellybeans_overrides = {
+                \    'background': { 'guibg': '000000' },
+                \}
+    colorscheme jellybeans
+    let g:airline_theme='jellybeans'
+    let g:airline_powerline_fonts = 1
+    " let g:airline_theme='serene'
 
     " darkspace
-    let g:darkspace_italics = 1
-    colorscheme darkspace
-    let g:airline_theme='serene'
+    " let g:darkspace_italics = 1
+    " colorscheme darkspace
+    " let g:airline_theme='serene'
 
-     "colorscheme base16-black-metal
-     "let g:airline_theme='serene'
+    "colorscheme base16-black-metal
+    "let g:airline_theme='serene'
 
     " colorscheme base16-black-metal
     " let g:airline_theme='serene'
@@ -383,15 +384,15 @@ else
         let g:jellybeans_overrides['background']['guibg'] = 'none'
     endif
 
-    " colorscheme jellybeans
-    " let g:airline_theme='jellybeans'
-    " let g:airline_powerline_fonts = 1
-    "let g:airline_theme='serene'
+    colorscheme jellybeans
+    let g:airline_theme='jellybeans'
+    let g:airline_powerline_fonts = 1
+    " let g:airline_theme='serene'
 
     " darkspace
-    let g:darkspace_italics = 1
-    colorscheme darkspace
-    let g:airline_theme='serene'
+    " let g:darkspace_italics = 1
+    " colorscheme darkspace
+    " let g:airline_theme='serene'
 
     " gruvbox overrides
     " let g:gruvbox_contrast_dark='hard'
@@ -549,7 +550,9 @@ set cursorcolumn
 
 " vmap <C-c> "+y
 
-set completeopt=longest,menuone,preview
+" set completeopt=longest,menuone,preview
+set completeopt=noinsert,menuone,noselect,preview
+set shortmess+=c
 
 if has("mouse_sgr")
     set ttymouse=sgr
@@ -631,6 +634,7 @@ let g:nv_search_paths = ['~/Notes']
 set ff=unix
 
 "let g:airline_powerline_fonts = 1
+let g:airline#extensions#coc#show_coc_status = 0
 
 " ALE configuration
 let g:ale_completion_enabled = 1
