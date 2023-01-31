@@ -45,6 +45,12 @@ export DATADOG_TRACE_ENABLED=false
 export DD_PROFILING_API_TIMEOUT=0.001
 export STATSD_URL=unix:///var/run/datadog-agent/statsd.sock
 
+function reset-data {
+    pushd ~/dd/dogweb
+    rake data:clean:all data:load:all upgrade_db
+    popd
+}
+
 function update-dogweb {
     pushd ~/dd/dogweb
     set -e
@@ -55,6 +61,8 @@ function update-dogweb {
     wait
     echo "Done updating deps!"
     rake upgrade_db
+    # clean up templates due to switching between py2/3
+    rm -rf data/templates
     set +e
     popd
 }
