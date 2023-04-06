@@ -1,8 +1,7 @@
 #!/bin/bash
-BASEDIR=$(dirname "$0")
+BASEDIR=$(readlink -f "$0")
 
-curl -o /tmp/install-oh-my-zsh.sh https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-KEEP_ZSHRC=yes sh /tmp/install-oh-my-zsh.sh
+set -x
 
 sudo apt -y update
 
@@ -32,7 +31,7 @@ curl -LO https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-l
 sudo dpkg -i nvim-linux64.deb
 popd
 
-sudo unminimize
+# sudo unminimize
 
 mkdir -p ~/bin
 pushd /tmp
@@ -40,11 +39,12 @@ wget https://github.com/aristocratos/btop/releases/latest/download/btop-x86_64-l
 tar xvf btop-x86_64-linux-musl.tbz
 pushd btop
 ./install.sh
+popd
 rm -rf btop btop-x86_64-linux-musl.tbz
 popd
 
 pip3 install dotdrop
 dotdrop install -f -p workspace
 
-cp $BASEDIR/clinstid-datadog-github_id_ed25519.pub ~/.ssh
+cp scripts/clinstid-datadog-github_id_ed25519.pub ~/.ssh
 chmod 0644 ~/.ssh/clinstid-datadog-github_id_ed25519.pub
