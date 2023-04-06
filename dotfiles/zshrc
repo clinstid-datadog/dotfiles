@@ -33,8 +33,12 @@ compinit
 zinit cdreplay -q
 zstyle ':completion:*' menu select
 
-# Set up prompt
-PROMPT='$(kube_ps1)'$'\n'"$PROMPT"
+# autosuggestions, trigger precmd hook upon load
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+zinit ice wait="0a" lucid atload="_zsh_autosuggest_start"
+zinit light zsh-users/zsh-autosuggestions
+bindkey '  ' autosuggest-accept
+
 PROMPT_EOL_MARK=""
 
 # Load helper functions
