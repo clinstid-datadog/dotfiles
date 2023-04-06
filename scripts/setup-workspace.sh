@@ -21,6 +21,7 @@ sudo apt-get -y install \
     tmux \
     elinks \
     bash-completion \
+    file \
     exuberant-ctags
 
 pushd /tmp
