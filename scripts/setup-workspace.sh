@@ -25,7 +25,8 @@ sudo apt-get -y install \
     exuberant-ctags
 
 pushd /tmp
-curl -LO https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-linux64.deb
+NVIM_VERSION="v0.8.3"
+curl -LO https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.deb
 sudo dpkg -i nvim-linux64.deb
 popd
 
