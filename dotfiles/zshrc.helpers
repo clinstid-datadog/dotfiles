@@ -38,7 +38,18 @@ function find_master_branch {
         branch=main
     fi
 
+    if [ $(git rev-parse --verify --quiet preprod) ]; then
+        branch=preprod
+    fi
+
     echo ${branch}
+}
+
+if alias gsw >/dev/null 2>&1; then
+    unalias gsw
+fi
+function gsw() {
+    git switch "$(git branch -lr | fzf | tr -d '[:space:]')"
 }
 
 function btm() {

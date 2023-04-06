@@ -112,6 +112,8 @@ Plug 'lifepillar/pgsql.vim'
 
 Plug 'aklt/plantuml-syntax'
 
+Plug 'craigmac/vim-mermaid'
+
 " Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -313,7 +315,7 @@ if has("gui_running")
     set noerrorbells visualbell t_vb=
     autocmd GUIEnter * set visualbell t_vb=
     set guicursor=a:blinkon0
-    set guifont=Hack:h14
+    set guifont=Hack:h12
     " Dark colors
     set background=dark
     " let g:PaperColor_Theme_Options = {
@@ -341,18 +343,19 @@ if has("gui_running")
     " let g:airline_theme='gruvbox'
 
     " jellybeans stuff
-    let g:jellybeans_overrides = {
-                \    'background': { 'guibg': '000000' },
-                \}
-    colorscheme jellybeans
-    let g:airline_theme='jellybeans'
-    let g:airline_powerline_fonts = 1
+    " let g:jellybeans_overrides = {
+    "             \    'background': { 'guibg': '000000' },
+    "             \}
+    " colorscheme jellybeans
+    " let g:airline_theme='jellybeans'
+    " let g:airline_powerline_fonts = 1
     " let g:airline_theme='serene'
 
     " darkspace
-    " let g:darkspace_italics = 1
-    " colorscheme darkspace
-    " let g:airline_theme='serene'
+    let g:darkspace_italics = 1
+    colorscheme darkspace
+    let g:airline_theme='serene'
+    let g:airline_powerline_fonts = 1
 
     "colorscheme base16-black-metal
     "let g:airline_theme='serene'
@@ -360,10 +363,12 @@ if has("gui_running")
     " colorscheme base16-black-metal
     " let g:airline_theme='serene'
 
+    " colorscheme molokai
+    " let g:airline_theme='molokai'
+
     " copy and paste to system clipboard
     imap <C-S-v> <C-r>+
     vmap <C-S-c> "+y
-    let g:airline_powerline_fonts = 1
 else
     set termguicolors
     set fillchars="vert:\│"
@@ -379,20 +384,21 @@ else
     "colorscheme PaperColor
 
     " jellybeans settings
-    let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
-    if has('termguicolors') && &termguicolors
-        let g:jellybeans_overrides['background']['guibg'] = 'none'
-    endif
+    " let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
+    " if has('termguicolors') && &termguicolors
+        " let g:jellybeans_overrides['background']['guibg'] = 'none'
+    " endif
 
-    colorscheme jellybeans
-    let g:airline_theme='jellybeans'
-    let g:airline_powerline_fonts = 1
+    " colorscheme jellybeans
+    " let g:airline_theme='jellybeans'
+    " let g:airline_powerline_fonts = 1
     " let g:airline_theme='serene'
 
     " darkspace
-    " let g:darkspace_italics = 1
-    " colorscheme darkspace
-    " let g:airline_theme='serene'
+    let g:darkspace_italics = 1
+    colorscheme darkspace
+    let g:airline_powerline_fonts = 1
+    let g:airline_theme='darkspace'
 
     " gruvbox overrides
     " let g:gruvbox_contrast_dark='hard'
@@ -404,6 +410,10 @@ else
     " set background=light
     " colorscheme PaperColor
     " let g:airline_theme='papercolor'
+
+    " let g:airline_powerline_fonts = 1
+    " colorscheme molokai
+    " let g:airline_theme='molokai'
 
     " copy and paste to system clipboard
     imap <C-S-v> <C-r>+
