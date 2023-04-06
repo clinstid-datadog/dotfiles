@@ -27,6 +27,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Enable compinit and replay compdefs
+autoload -Uz compinit
+compinit
+zinit cdreplay -q
+zstyle ':completion:*' menu select
+
 # Set up prompt
 PROMPT='$(kube_ps1)'$'\n'"$PROMPT"
 PROMPT_EOL_MARK=""
