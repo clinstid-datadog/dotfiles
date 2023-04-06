@@ -40,3 +40,6 @@ pushd btop
 ./install.sh
 rm -rf btop btop-x86_64-linux-musl.tbz
 popd
+
+pip3 install dotdrop
+dotdrop install -f -p workspace
