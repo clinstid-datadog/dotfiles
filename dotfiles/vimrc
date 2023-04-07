@@ -352,10 +352,17 @@ if has("gui_running")
     " let g:airline_theme='serene'
 
     " darkspace
-    let g:darkspace_italics = 1
-    colorscheme darkspace
-    let g:airline_theme='serene'
+    " let g:darkspace_italics = 1
+    " colorscheme darkspace
+    " let g:airline_theme='serene'
+    " let g:airline_powerline_fonts = 1
+
+    " ghdark
+    colorscheme ghdark
+    let g:airline_theme='ghdark'
     let g:airline_powerline_fonts = 1
+
+
 
     "colorscheme base16-black-metal
     "let g:airline_theme='serene'
@@ -395,10 +402,14 @@ else
     " let g:airline_theme='serene'
 
     " darkspace
-    let g:darkspace_italics = 1
-    colorscheme darkspace
+    " let g:darkspace_italics = 1
+    " colorscheme darkspace
+    " let g:airline_powerline_fonts = 1
+    " let g:airline_theme='darkspace'
+
+    colorscheme ghdark
+    let g:airline_theme='ghdark'
     let g:airline_powerline_fonts = 1
-    let g:airline_theme='darkspace'
 
     " gruvbox overrides
     " let g:gruvbox_contrast_dark='hard'
