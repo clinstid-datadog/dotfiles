@@ -66,3 +66,5 @@ function update-dogweb {
     set +e
     popd
 }
+
+export DOTDROP_PROFILE=workspace
