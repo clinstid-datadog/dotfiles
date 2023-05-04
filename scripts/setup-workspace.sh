@@ -48,3 +48,5 @@ dotdrop install -f -p workspace
 
 cp scripts/clinstid-datadog-github_id_ed25519.pub ~/.ssh
 chmod 0644 ~/.ssh/clinstid-datadog-github_id_ed25519.pub
+
+sudo chsh -s /bin/zsh $(whoami)
