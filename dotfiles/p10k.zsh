@@ -34,6 +34,7 @@
     # os_icon               # os identifier
     vcs                     # git status
     pyenv                   # python environment (https://github.com/pyenv/pyenv)
+    virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     kubecontext             # current kubernetes context (https://kubernetes.io/)
     status                  # exit code of the last command
     # =========================[ Line #2 ]=========================

@@ -68,3 +68,11 @@ function update-dogweb {
 }
 
 export DOTDROP_PROFILE=workspace
+
+export GOPATH='/home/bits/go'
+
+if [ -f "/home/bits/.config/dogweb.shellrc" ]; then
+    source /home/bits/.config/dogweb.shellrc
+fi
+
+export GOPATH='/home/bits/go'
