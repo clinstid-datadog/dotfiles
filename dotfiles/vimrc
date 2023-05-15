@@ -143,6 +143,9 @@ Plug 'dkarter/bullets.vim'
 Plug 'google/vim-maktaba'
 Plug 'bazelbuild/vim-bazel'
 Plug 'cappyzawa/starlark.vim'
+au BufNewFile,BufRead *.sky set filetype=starlark
+au BufNewFile,BufRead *.star set filetype=starlark
+
 
 Plug 'clinstid/nginx.vim'
 
@@ -407,6 +410,7 @@ else
     " let g:airline_powerline_fonts = 1
     " let g:airline_theme='darkspace'
 
+    " let g:gh_color = "soft"
     colorscheme ghdark
     let g:airline_theme='ghdark'
     let g:airline_powerline_fonts = 1
@@ -515,6 +519,9 @@ aut BufRead,BufNewfile *.confluence set filetype=confluencewiki
 
 " typescript files
 aut BufRead,BufNewfile *.tsx set filetype=typescript
+
+" jsonc files
+autocmd BufNewFile,BufRead devcontainer.json setlocal filetype=jsonc
 
 " look for a tags file
 set tags=tags;
@@ -788,5 +795,8 @@ augroup END
 nmap Y yy
 
 nnoremap <leader>td "=strftime("# %F")<cr>P
+
+" Override to prevent concealing unused variables from Coc
+highlight link CocUnusedHighlight Error
 
 " set timeoutlen=1000 ttimeoutlen=0
