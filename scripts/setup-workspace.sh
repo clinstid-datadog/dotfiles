@@ -60,4 +60,8 @@ if [ ! -x ~/bin/kubectx ] || [ ! -x ~/bin/kubens ]; then
     rm -rf /tmp/kubectx
 fi
 
+if [ ! -x ~/go/bin/buildifier ]; then
+    go install github.com/bazelbuild/buildtools/buildifier@latest
+fi
+
 sudo chsh -s /bin/zsh $(whoami)
