@@ -76,6 +76,8 @@ Plug 'cespare/vim-toml', {'branch': 'main'}
 
 Plug 'nathanaelkane/vim-indent-guides'
 
+Plug 'pedrohdz/vim-yaml-folds'
+
 Plug 'fatih/vim-go'
 
 Plug 'towolf/vim-helm'
@@ -601,8 +603,9 @@ let g:vim_markdown_conceal = 0
 " Markdown autoformatting
 nmap <leader>tf :TableFormat<cr>
 
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 0
+let g:indent_guides_auto_colors = 1
 nmap <leader>i :IndentGuidesToggle<cr>
 nmap <leader>p :echo expand('%:p')<cr>
 
