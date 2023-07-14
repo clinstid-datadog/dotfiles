@@ -65,3 +65,7 @@ if [ ! -x ~/go/bin/buildifier ]; then
 fi
 
 sudo chsh -s /bin/zsh $(whoami)
+
+ln -sf ~/dd ~/src
+
+nvim --headless +PlugInstall +qa
