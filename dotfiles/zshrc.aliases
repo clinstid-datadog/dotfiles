@@ -5,7 +5,7 @@ else
     alias ls="exa"
 fi
 
-alias less="bat -p"
+# alias less="bat -p"
 
 alias update="brew update -v && brew upgrade -v ; brew cleanup"
 alias ncdu="ncdu --color dark"
