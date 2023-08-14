@@ -12,7 +12,7 @@
   "diagnostic-languageserver.enable": true,
   "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.debug": true,
-  "diagnostic-languageserver.filetypes": {"python": ["flake8", "pylint"], "go": ["golint"]},
+  "diagnostic-languageserver.filetypes": {"python": ["pylint"], "go": ["golint"]},
   "diagnostic-languageserver.linters": {
     "pylint": {
       "sourceName": "pylint",
