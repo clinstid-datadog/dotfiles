@@ -11,3 +11,4 @@ cover.html
 pyrightconfig.json
 *.egg-info
 __pycache__
+bazel-*

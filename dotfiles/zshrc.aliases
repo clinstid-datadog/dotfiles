@@ -5,7 +5,7 @@ else
     alias ls="exa"
 fi
 
-alias less="bat -p"
+# alias less="bat -p"
 
 alias update="brew update -v && brew upgrade -v ; brew cleanup"
 alias ncdu="ncdu --color dark"
@@ -50,3 +50,5 @@ function kgetall {
         kubectl -n ${1} get --ignore-not-found ${i}
     done
 }
+
+alias rapid='bzl run //:rapid -- '

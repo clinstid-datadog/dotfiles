@@ -53,17 +53,8 @@ function reset-data {
 
 function update-dogweb {
     pushd ~/dd/dogweb
-    set -e
-    # echo "Updating python 2 deps in background"
-    # rake "python:get_deps[2]" 2>&1 > /tmp/py2-update.log &
-    # echo "Updating python 3 deps in background"
-    # rake "python:get_deps[3]" 2>&1 > /tmp/py3-update.log &
-    rake "python:get_deps[3]"
-    echo "Done updating deps!"
-    rake upgrade_db
-    # clean up templates due to switching between py2/3
-    rm -rf data/templates
-    set +e
+    rake "python:get_deps[3]" && \
+        rake upgrade_db
     popd
 }
 
