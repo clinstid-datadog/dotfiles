@@ -386,25 +386,28 @@ else
     set fillchars="vert:\│"
     " Dark colors
     set background=dark
-    "let g:PaperColor_Theme_Options = {
-                "\   'theme': {
-                "\     'default': {
-                "\       'transparent_background': 1
-                "\     }
-                "\   }
-                "\ }
-    "colorscheme PaperColor
+
+    " let g:PaperColor_Theme_Options = {
+    "             \   'theme': {
+    "             \     'default': {
+    "             \       'transparent_background': 1
+    "             \     }
+    "             \   }
+    "             \ }
+    " colorscheme PaperColor
+    " let g:airline_theme='serene'
+    " let g:airline_powerline_fonts = 1
 
     " jellybeans settings
-    " let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
-    " if has('termguicolors') && &termguicolors
-        " let g:jellybeans_overrides['background']['guibg'] = 'none'
-    " endif
+    let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
+    if has('termguicolors') && &termguicolors
+        let g:jellybeans_overrides['background']['guibg'] = 'none'
+    endif
 
-    " colorscheme jellybeans
+    colorscheme jellybeans
+    let g:airline_powerline_fonts = 1
     " let g:airline_theme='jellybeans'
-    " let g:airline_powerline_fonts = 1
-    " let g:airline_theme='serene'
+    let g:airline_theme='serene'
 
     " darkspace
     " let g:darkspace_italics = 1
@@ -413,9 +416,9 @@ else
     " let g:airline_theme='darkspace'
 
     " let g:gh_color = "soft"
-    colorscheme ghdark
-    let g:airline_theme='ghdark'
-    let g:airline_powerline_fonts = 1
+    " colorscheme ghdark
+    " let g:airline_theme='ghdark'
+    " let g:airline_powerline_fonts = 1
 
     " gruvbox overrides
     " let g:gruvbox_contrast_dark='hard'
