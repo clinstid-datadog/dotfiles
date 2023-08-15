@@ -387,27 +387,27 @@ else
     " Dark colors
     set background=dark
 
-    " let g:PaperColor_Theme_Options = {
-    "             \   'theme': {
-    "             \     'default': {
-    "             \       'transparent_background': 1
-    "             \     }
-    "             \   }
-    "             \ }
-    " colorscheme PaperColor
-    " let g:airline_theme='serene'
-    " let g:airline_powerline_fonts = 1
+    let g:PaperColor_Theme_Options = {
+                \   'theme': {
+                \     'default': {
+                \       'transparent_background': 1
+                \     }
+                \   }
+                \ }
+    colorscheme PaperColor
+    let g:airline_theme='serene'
+    let g:airline_powerline_fonts = 1
 
     " jellybeans settings
-    let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
-    if has('termguicolors') && &termguicolors
-        let g:jellybeans_overrides['background']['guibg'] = 'none'
-    endif
+    " let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
+    " if has('termguicolors') && &termguicolors
+    "     let g:jellybeans_overrides['background']['guibg'] = 'none'
+    " endif
 
-    colorscheme jellybeans
-    let g:airline_powerline_fonts = 1
-    " let g:airline_theme='jellybeans'
-    let g:airline_theme='serene'
+    " colorscheme jellybeans
+    " let g:airline_powerline_fonts = 1
+    " " let g:airline_theme='jellybeans'
+    " let g:airline_theme='serene'
 
     " darkspace
     " let g:darkspace_italics = 1
@@ -606,7 +606,7 @@ let g:vim_markdown_conceal = 0
 " Markdown autoformatting
 nmap <leader>tf :TableFormat<cr>
 
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_guide_size = 0
 let g:indent_guides_auto_colors = 1
 nmap <leader>i :IndentGuidesToggle<cr>

@@ -28,14 +28,14 @@ function gpush() {
 }
 
 function find_master_branch {
-    branch=master
+    branch=main
 
     if [ $(git rev-parse --verify --quiet prod) ]; then
         branch=prod
     fi
 
-    if [ $(git rev-parse --verify --quiet main) ]; then
-        branch=main
+    if [ $(git rev-parse --verify --quiet master) ]; then
+        branch=master
     fi
 
     if [ $(git rev-parse --verify --quiet preprod) ]; then
