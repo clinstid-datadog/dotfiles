@@ -45,7 +45,7 @@ if [ ! -x /usr/local/bin/btop ]; then
 fi
 
 pip3 install dotdrop
-dotdrop install -p workspace
+dotdrop install -f -p workspace
 
 cp scripts/clinstid-datadog-github_id_ed25519.pub ~/.ssh
 chmod 0644 ~/.ssh/clinstid-datadog-github_id_ed25519.pub
