@@ -23,7 +23,8 @@ sudo apt-get -y install \
     elinks \
     bash-completion \
     file \
-    exuberant-ctags
+    exuberant-ctags \
+    fd-find
 
 pushd /tmp
 NVIM_VERSION="v0.8.3"
