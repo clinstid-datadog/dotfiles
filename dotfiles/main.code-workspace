@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "dd/web-intenv"
+		},
+		{
+			"path": "dd/dd-go"
+		},
+		{
+			"path": "dd/dogweb"
+		},
+		{
+			"path": "dd/dd-source"
+		}
+	]
+}

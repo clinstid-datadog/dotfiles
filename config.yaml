@@ -59,6 +59,9 @@ dotfiles:
   f_p10k.zsh:
     src: p10k.zsh
     dst: ~/.p10k.zsh
+  f_main.code-workspace:
+    src: main.code-workspace
+    dst: ~/main.code-workspace
 profiles:
   common:
     dotfiles:
@@ -94,6 +97,8 @@ profiles:
     - linux
     variables:
       is_workspace: true
+    dotfiles:
+    - f_main.code-workspace
   chris-linstid-0:
     include:
     - workspace
