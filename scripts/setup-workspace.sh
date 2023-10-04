@@ -26,6 +26,8 @@ sudo apt-get -y install \
     exuberant-ctags \
     fd-find
 
+sudo apt -y remove fzf
+
 pushd /tmp
 NVIM_VERSION="v0.8.3"
 curl -LO https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.deb
