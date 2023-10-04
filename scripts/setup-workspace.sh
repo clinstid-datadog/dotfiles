@@ -1,5 +1,5 @@
 #!/bin/bash
-BASEDIR=$(readlink -f "$0")
+BASEDIR=$(dirname $(readlink -f "$0"))
 
 set -x
 
@@ -48,7 +48,7 @@ fi
 pip3 install dotdrop
 dotdrop install -f -p workspace
 
-cp scripts/clinstid-datadog-github_id_ed25519.pub ~/.ssh
+cp $BASEDIR/clinstid-datadog-github_id_ed25519.pub ~/.ssh
 chmod 0644 ~/.ssh/clinstid-datadog-github_id_ed25519.pub
 
 mkdir -p ~/bin
