@@ -86,8 +86,6 @@ Plug 'fatih/vim-go'
 
 Plug 'towolf/vim-helm'
 
-"Plug 'Shougo/vimproc.vim'
-
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
@@ -185,8 +183,6 @@ Plug 'PProvost/vim-ps1'
 " Plug 'wellle/context.vim'
 
 Plug 'rust-lang/rust.vim'
-
-Plug 'NoahTheDuke/vim-just'
 
 Plug 'Alok/notational-fzf-vim'
 
@@ -357,7 +353,6 @@ endif
 " let g:airline_powerline_fonts = 1
 " let g:airline_theme='darkspace'
 
-let g:gh_color = "soft"
 colorscheme ghdark
 let g:airline_theme='ghdark'
 let g:airline_powerline_fonts = 1
