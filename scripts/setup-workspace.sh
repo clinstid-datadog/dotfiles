@@ -50,9 +50,6 @@ fi
 pip3 install dotdrop
 dotdrop install -f -p workspace
 
-cp $BASEDIR/clinstid-datadog-github_id_ed25519.pub ~/.ssh
-chmod 0644 ~/.ssh/clinstid-datadog-github_id_ed25519.pub
-
 mkdir -p ~/bin
 
 if [ ! -x ~/bin/kubectx ] || [ ! -x ~/bin/kubens ]; then
