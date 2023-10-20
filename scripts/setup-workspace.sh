@@ -29,7 +29,7 @@ sudo apt-get -y install \
 sudo apt -y remove fzf
 
 pushd /tmp
-NVIM_VERSION="v0.8.3"
+NVIM_VERSION="v0.9.4"
 curl -LO https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.deb
 sudo dpkg -i nvim-linux64.deb
 popd
