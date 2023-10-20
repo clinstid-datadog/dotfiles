@@ -1,11 +1,7 @@
 [user]
     name = Chris Linstid
     email = chris.linstid@datadoghq.com
-{%@@ if is_workspace @@%}
-    signingKey = /home/bits/.ssh/clinstid-datadog-github_id_ed25519.pub
-{%@@ else @@%}
-    signingKey = /Users/chris.linstid/.ssh/clinstid-datadog-github_id_ed25519.pub
-{%@@ endif @@%}
+    signingKey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKZ1JIn27ycLPg59GAJE2PNtlWD38bjTJhMYFaglt9U5 chris.linstid@datadoghq.com
 
 [core]
     excludesfile = ~/.gitignore
