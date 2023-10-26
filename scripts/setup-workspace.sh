@@ -29,7 +29,7 @@ sudo apt-get -y install \
 sudo apt -y remove fzf
 
 pushd /tmp
-NVIM_VERSION="v0.8.3"
+NVIM_VERSION="v0.9.4"
 curl -LO https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.deb
 sudo dpkg -i nvim-linux64.deb
 popd
@@ -49,9 +49,6 @@ fi
 
 pip3 install dotdrop
 dotdrop install -f -p workspace
-
-cp $BASEDIR/clinstid-datadog-github_id_ed25519.pub ~/.ssh
-chmod 0644 ~/.ssh/clinstid-datadog-github_id_ed25519.pub
 
 mkdir -p ~/bin
 
