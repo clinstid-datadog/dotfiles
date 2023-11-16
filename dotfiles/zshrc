@@ -28,6 +28,9 @@ zinit light jonmosco/kube-ps1
 # Install powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
+# Plugin to update terminal title
+zinit light trystan2k/zsh-tab-title
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -118,3 +121,5 @@ if [ -d "$HOME/.volta" ]; then
     export VOLTA_HOME="$HOME/.volta"
     export PATH="$VOLTA_HOME/bin:$PATH"
 fi
+
+SCRIPT=~/dd/winter/winter/completion-scripts/winter_completion.zsh && test -f $SCRIPT && source $SCRIPT

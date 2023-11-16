@@ -356,6 +356,7 @@ endif
 colorscheme ghdark
 let g:airline_theme='ghdark'
 let g:airline_powerline_fonts = 1
+highlight Normal ctermbg=None guibg=None
 
 " gruvbox overrides
 " let g:gruvbox_contrast_dark='hard'
