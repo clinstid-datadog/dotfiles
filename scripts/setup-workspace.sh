@@ -1,6 +1,8 @@
 #!/bin/bash
 BASEDIR=$(dirname $(readlink -f "$0"))
 
+mkdir -p ~/bin
+
 set -x
 
 sudo apt -y update
@@ -30,11 +32,12 @@ sudo apt -y remove fzf
 
 pushd /tmp
 NVIM_VERSION="v0.9.4"
-curl -LO https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.deb
-sudo dpkg -i nvim-linux64.deb
+curl -LO https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.tar.gz
+pushd $HOME
+tar xvf /tmp/nvim-linux64.tar.gz
+ln -svf ~/nvim-linux64/bin/nvim ~/bin/nvim
 popd
-
-# sudo unminimize
+popd
 
 if [ ! -x /usr/local/bin/btop ]; then
     pushd /tmp
@@ -49,8 +52,6 @@ fi
 
 pip3 install dotdrop
 dotdrop install -f -p workspace
-
-mkdir -p ~/bin
 
 if [ ! -x ~/bin/kubectx ] || [ ! -x ~/bin/kubens ]; then
     rm -rf /tmp/kubectx
