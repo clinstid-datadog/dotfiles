@@ -50,6 +50,8 @@ if [ ! -x /usr/local/bin/btop ]; then
     popd
 fi
 
+pip3 install --user git-machete
+
 pip3 install dotdrop
 dotdrop install -f -p workspace
 
@@ -72,3 +74,5 @@ ln -sf ~/dd ~/src
 nvim --headless +PlugInstall +qa
 
 git remote set-url origin git@github.com:clinstid-datadog/dotfiles
+
+go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest

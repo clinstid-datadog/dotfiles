@@ -122,4 +122,6 @@ if [ -d "$HOME/.volta" ]; then
     export PATH="$VOLTA_HOME/bin:$PATH"
 fi
 
+git machete --version &> /dev/null && source <(git machete completion zsh)
+
 SCRIPT=~/dd/winter/winter/completion-scripts/winter_completion.zsh && test -f $SCRIPT && source $SCRIPT
