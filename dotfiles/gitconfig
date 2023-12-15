@@ -56,5 +56,3 @@
     gpgSign = true
 [gpg]
     format = ssh
-[url "git@github.com:DataDog"]
-    insteadOf = https://github.com/DataDog
