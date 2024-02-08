@@ -67,3 +67,10 @@ if [ -f "/home/bits/.config/dogweb.shellrc" ]; then
 fi
 
 export GOPATH='/home/bits/go'
+
+function update-ddtool {
+    ddtool_version=$(curl -L https://binaries.ddbuild.io/ddtool/LATEST 2>/dev/null | cut -dv -f2)
+    wget -q "https://binaries.ddbuild.io/ddtool/v${ddtool_version}/ddtool.tar.gz" -O- | \
+        tar -zx -C ~/.local/bin --warning=no-unknown-keyword --transform 's/_linux_amd64//' ./ddtool_linux_amd64
+}
+
