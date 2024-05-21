@@ -51,6 +51,5 @@ function kgetall {
     done
 }
 
-alias rapid='bzl run //:rapid -- '
 alias tidy='bzl run //domains/api_platform/apps/tidy'
 alias gazelle='bzl run //:gazelle'

@@ -3,11 +3,9 @@ export LANG=en_US.UTF-8
 
 function save-secret {
     # not implemented yet
-    echo ""
 }
 function get-secret {
-    # not implemented yet
-    echo ""
+    pass $1
 }
 
 alias py2='source $HOME/go/src/github.com/DataDog/dogweb/venv2/bin/activate'
@@ -74,3 +72,12 @@ function update-ddtool {
         tar -zx -C ~/.local/bin --warning=no-unknown-keyword --transform 's/_linux_amd64//' ./ddtool_linux_amd64
 }
 
+function update-rapid-from-source {
+    TARGET_BIN=~/.local/bin
+    mkdir -p $TARGET_BIN
+    pushd ~/dd/dd-source
+    bzl build //domains/api_platform/rapid/apps/rapid:rapid
+    cp -v bazel-bin/domains/api_platform/rapid/apps/rapid/rapid_/rapid $TARGET_BIN
+    chmod 755 $TARGET_BIN/rapid
+    popd
+}
