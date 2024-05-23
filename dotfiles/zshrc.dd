@@ -41,4 +41,13 @@ function clear_dd_env() {
     unset DATADOG_HOST
 }
 
+function update_workflow_worker() {
+    domain=$1
+    app=$2
 
+    bzl run //:snapshot -- //domains/$domain/apps/$app/... && bzl run //:gazelle
+}
+
+function update_rapidtestdrive_worker() {
+    update_workflow_worker api_platform rapidtestdrive
+}
