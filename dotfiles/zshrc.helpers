@@ -49,7 +49,7 @@ if alias gsw >/dev/null 2>&1; then
     unalias gsw
 fi
 function gsw() {
-    git switch "$(git branch -lr | fzf | tr -d '[:space:]')"
+    git switch "$(git branch -lr | fzf | tr -d '[:space:]\*')"
 }
 
 function btm() {

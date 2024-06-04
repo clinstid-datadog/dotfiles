@@ -100,7 +100,8 @@ SCRIPT=~/dd/winter/winter/completion-scripts/winter_completion.zsh && test -f $S
 # Git branch info in prompt
 autoload -Uz vcs_info
 precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%b '
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:git:*' formats '%b %a %m%u%c '
 
 # k8s context in prompt
 kube_ps1_path=~/.kube-ps1
@@ -111,4 +112,4 @@ source $kube_ps1_path/kube-ps1.sh
 
 NEWLINE=$'\n'
 setopt PROMPT_SUBST
-PROMPT=${NEWLINE}'$(kube_ps1)'${NEWLINE}'%F{blue}%8~%f %F{red}${vcs_info_msg_0_}%f%F{green}%*%f'${NEWLINE}'%F{white}%n@%m%f > '
+PROMPT=${NEWLINE}'$(kube_ps1) %F{red}${vcs_info_msg_0_}%f'${NEWLINE}'%F{green}%*%f %F{blue}%8~%f'${NEWLINE}'%F{white}%n@%m%f > '

@@ -29,7 +29,8 @@ Plug 'jlanzarotta/bufexplorer'
 " color schemes
 " Plug 'clinstid/jellybeans.vim'
 Plug 'nanotech/jellybeans.vim'
-Plug 'clinstid/papercolor-theme.vim'
+" Plug 'clinstid/papercolor-theme.vim'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'clinstid/vim-darkspace'
 Plug 'clinstid/vylight.vim'
 Plug 'altercation/vim-colors-solarized'
@@ -37,6 +38,8 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'wojciechkepka/vim-github-dark'
 Plug 'tomasr/molokai'
 Plug 'wesgibbs/vim-irblack'
+Plug 'bluz71/vim-nightfly-colors', { 'as': 'nightfly' }
+Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
 
 " markdown support
 Plug 'godlygeek/tabular'
@@ -186,6 +189,8 @@ Plug 'rust-lang/rust.vim'
 
 Plug 'Alok/notational-fzf-vim'
 
+" Plug 'vimwiki/vimwiki'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 
@@ -294,7 +299,7 @@ function TruncAbsPath()
 endfunction
 
 function OpenWeeklyNotes()
-    let l:notes_file=system("weekly_notes.py")
+    let l:notes_file=system("~/bin/weekly_notes.py")
     exe 'edit' l:notes_file
 endfunction
 nnoremap <silent> <leader>wn :call OpenWeeklyNotes()<cr>
@@ -321,26 +326,27 @@ nnoremap <silent> <leader>wn :call OpenWeeklyNotes()<cr>
 
 set guifont=Hack\ Nerd\ Font:h12
 set termguicolors
-" set fillchars="vert:\│"
+set fillchars="vert:\│"
 " Dark colors
 set background=dark
 
-" let g:PaperColor_Theme_Options = {
-"             \   'theme': {
-"             \     'default': {
-"             \       'transparent_background': 1
-"             \     }
-"             \   }
-"             \ }
+let g:PaperColor_Theme_Options = {
+            \   'theme': {
+            \     'default': {
+            \       'transparent_background': 1
+            \     }
+            \   }
+            \ }
 " colorscheme PaperColor
 " let g:airline_theme='serene'
 " let g:airline_powerline_fonts = 1
+" highlight SignColumn guibg=None
 
 " jellybeans settings
-let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
-if has('termguicolors') && &termguicolors
-    let g:jellybeans_overrides['background']['guibg'] = 'none'
-endif
+" let g:jellybeans_overrides = {'background': { 'ctermbg': 'NONE', '256ctermbg': 'NONE' }}
+" if has('termguicolors') && &termguicolors
+    " let g:jellybeans_overrides['background']['guibg'] = 'none'
+" endif
 
 " colorscheme jellybeans
 " let g:airline_powerline_fonts = 1
@@ -356,7 +362,7 @@ endif
 colorscheme ghdark
 let g:airline_theme='ghdark'
 let g:airline_powerline_fonts = 1
-highlight Normal ctermbg=None guibg=None
+" highlight Normal ctermbg=None guibg=None
 
 " gruvbox overrides
 " let g:gruvbox_contrast_dark='hard'
@@ -461,9 +467,8 @@ autocmd BufNewFile,BufRead devcontainer.json setlocal filetype=jsonc
 " look for a tags file
 set tags=tags;
 
-" show tabs and trailing spaces
 " set list
-" set listchars=tab:»·,trail:·
+set listchars=tab:»·,trail:·,conceal:·
 
 " pymode options
 
@@ -509,7 +514,7 @@ let g:vim_json_syntax_conceal = 0
 
 " Highlight current line
 set cursorline
-set cursorcolumn
+" set cursorcolumn
 
 " vmap <C-c> "+y
 
@@ -531,7 +536,8 @@ set conceallevel=0
 let g:vim_markdown_folding_disabled = 1
 "let g:vim_markdown_auto_insert_bullets = 1
 let g:vim_markdown_new_list_item_indent = 0
-let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal = 2
+let g:vim_markdown_recommended_style = 0
 
 " Markdown autoformatting
 nmap <leader>tf :TableFormat<cr>
@@ -738,3 +744,10 @@ highlight link CocUnusedHighlight Error
 vnoremap < <gv
 vnoremap > >gv
 
+" vimwiki configuration
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': 'md'}]
+let g:vimwiki_global_ext = 0
+
+nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>

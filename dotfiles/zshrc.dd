@@ -48,6 +48,6 @@ function update_workflow_worker() {
     bzl run //:snapshot -- //domains/$domain/apps/$app/... && bzl run //:gazelle
 }
 
-function update_rapidtestdrive_worker() {
-    update_workflow_worker api_platform rapidtestdrive
+function update_rapidtdworker() {
+    update_workflow_worker api_platform rapidtdworker
 }
