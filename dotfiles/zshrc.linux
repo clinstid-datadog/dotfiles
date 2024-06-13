@@ -81,3 +81,5 @@ function update-rapid-from-source {
     chmod 755 $TARGET_BIN/rapid
     popd
 }
+
+alias legacy-rapid="bzl run //:rapid --"

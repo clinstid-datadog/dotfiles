@@ -63,9 +63,16 @@ if [ ! -x ~/bin/kubectx ] || [ ! -x ~/bin/kubens ]; then
     rm -rf /tmp/kubectx
 fi
 
+# Bazel setup for vscode
 if [ ! -x ~/go/bin/buildifier ]; then
     go install github.com/bazelbuild/buildtools/buildifier@latest
 fi
+
+if [ ! -x ~/.local/bin/starpls ]; then
+    curl -s -L -o ~/.local/bin/starpls https://github.com/withered-magic/starpls/releases/latest/download/starpls-linux-amd64 && chmod +x ~/.local/bin/starpls
+fi
+
+
 
 sudo chsh -s /bin/zsh $(whoami)
 
