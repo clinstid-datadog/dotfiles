@@ -82,4 +82,14 @@ function update-rapid-from-source {
     popd
 }
 
+function update-tdctl-from-source {
+    TARGET_BIN=~/.local/bin
+    mkdir -p $TARGET_BIN
+    pushd ~/dd/dd-source
+    bzl build //domains/api_platform/apps/tdctl:tdctl
+    cp -v bazel-bin/domains/api_platform/apps/tdctl/tdctl_/tdctl $TARGET_BIN
+    chmod 755 $TARGET_BIN/tdctl
+    popd
+}
+
 alias legacy-rapid="bzl run //:rapid --"
