@@ -137,3 +137,12 @@ function vault-switch {
     export VAULT_ADDR="https://vault.$1"
     vault token lookup 2>&1 > /dev/null || vault login -method=oidc -no-print && echo "Switched to $VAULT_ADDR"
 }
+
+function generate-build-file() {
+    domain=$1
+    service=$2
+    manifest="//domains/${domain}/apps/apis/${service}:rapidschema_manifest"
+    echo "Manifest is $manifest"
+    bzl run //domains/api_platform/rapid/etc/delta_workflow_gen \
+        --//domains/api_platform/rapid/etc/delta_workflow_gen:rapidschema_manifest="${manifest}" \
+}

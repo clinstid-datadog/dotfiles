@@ -8,7 +8,7 @@
 
 [diff]
     tool = vimdiff
-    renameLimit = 1000
+	renameLimit = 10000
 
 [difftool]
     prompt = true
