@@ -92,4 +92,22 @@ function update-tdctl-from-source {
     popd
 }
 
+function update-tdctl {
+    wget -q -O - \
+        https://binaries.ddbuild.io/dd-source/tdctl/LATEST/tdctl-tar.tar.gz -O- | \
+        tar zx -C ~/.local/bin --transform 's/-linux-amd64//' tdctl-linux-amd64
+}
+
+function update-rapid {
+    wget -q -O - \
+        https://binaries.ddbuild.io/dd-source/rapid/LATEST/rapid-tar.tar.gz -O- | \
+        tar zx -C ~/.local/bin --transform 's/-linux-amd64//' rapid-linux-amd64
+}
+
+function update-ddr {
+    wget -q -O - \
+        https://binaries.ddbuild.io/dd-source/ddr/LATEST/ddr-tar.tar.gz -O- | \
+        tar zx -C ~/.local/bin --transform 's/-linux-amd64//' ddr-linux-amd64
+}
+
 alias legacy-rapid="bzl run //:rapid --"
