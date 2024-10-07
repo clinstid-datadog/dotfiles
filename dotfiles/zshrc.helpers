@@ -137,3 +137,23 @@ function vault-switch {
     export VAULT_ADDR="https://vault.$1"
     vault token lookup 2>&1 > /dev/null || vault login -method=oidc -no-print && echo "Switched to $VAULT_ADDR"
 }
+
+function update-rapid-from-source {
+    TARGET_BIN=~/.local/bin
+    mkdir -p $TARGET_BIN
+    pushd ~/dd/dd-source
+    bzl build //domains/api_platform/rapid/apps/rapid:rapid
+    cp -v bazel-bin/domains/api_platform/rapid/apps/rapid/rapid_/rapid $TARGET_BIN
+    chmod 755 $TARGET_BIN/rapid
+    popd
+}
+
+function update-tdctl-from-source {
+    TARGET_BIN=~/.local/bin
+    mkdir -p $TARGET_BIN
+    pushd ~/dd/dd-source
+    bzl build //domains/api_platform/apps/tdctl:tdctl
+    cp -v bazel-bin/domains/api_platform/apps/tdctl/tdctl_/tdctl $TARGET_BIN
+    chmod 755 $TARGET_BIN/tdctl
+    popd
+}

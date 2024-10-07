@@ -11,8 +11,7 @@ export PATH="/opt/homebrew/bin:${PATH?}"
 # Force certain more-secure behaviours from homebrew
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 export HOMEBREW_CASK_OPTS=--require-sha
-export HOMEBREW_DIR=/opt/homebrew
-export HOMEBREW_BIN=/opt/homebrew/bin
+eval "$(brew shellenv)"
 
 # Load ruby shims
 eval "$(rbenv init -)"
@@ -65,8 +64,7 @@ alias appgatedd="osascript -e 'quit app \"AppGate SDP\"' || true && sleep 1 && o
 alias grep=ggrep
 
 # pyenv
-eval "$(pyenv init --path)"
-eval "$(pyenv init - --no-rehash)"
+eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 source_if_exists /opt/homebrew/share/zsh/site-functions/_ddtool
