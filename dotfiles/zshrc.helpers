@@ -156,6 +156,9 @@ function update-tdctl-from-source {
     cp -v bazel-bin/domains/api_platform/apps/tdctl/tdctl_/tdctl $TARGET_BIN
     chmod 755 $TARGET_BIN/tdctl
     popd
+}
+
+alias rapidctl="pushd ~/dd/dd-source && bzl run //domains/api_platform/apps/rapidctl --; popd"
 
 function generate-build-file() {
     domain=$1
@@ -163,5 +166,16 @@ function generate-build-file() {
     manifest="//domains/${domain}/apps/apis/${service}:rapidschema_manifest"
     echo "Manifest is $manifest"
     bzl run //domains/api_platform/rapid/etc/delta_workflow_gen \
-        --//domains/api_platform/rapid/etc/delta_workflow_gen:rapidschema_manifest="${manifest}" \
+        --//domains/api_platform/rapid/etc/delta_workflow_gen:rapidschema_manifest="${manifest}"
+}
+
+function orgstore-psql {
+    LOGICAL_NAME=$1
+    K8S_CLUSTER=$2
+
+    kubectl exec \
+        --context $K8S_CLUSTER \
+        --namespace orgstore-$LOGICAL_NAME \
+        -it \
+        deployment/orgstore-$LOGICAL_NAME-toolbox -- pg-wrap -o $LOGICAL_NAME psql
 }
