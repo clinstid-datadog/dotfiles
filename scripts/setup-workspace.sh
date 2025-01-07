@@ -26,7 +26,8 @@ sudo apt-get -y install \
     bash-completion \
     file \
     exuberant-ctags \
-    fd-find
+    fd-find \
+    direnv
 
 sudo apt -y remove fzf
 
