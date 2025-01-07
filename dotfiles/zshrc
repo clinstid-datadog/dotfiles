@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 # Language
 export LC_ALL=en_US.UTF-8
 export LANG=en_us.UTF-8
@@ -16,8 +18,21 @@ export FZF_DEFAULT_COMMAND='fdfind --hidden'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# Enable compinit and replay compdefs
-autoload -Uz compinit; compinit
+# Load and initialize the completion system ignoring insecure directories with a
+# cache time of 20 hours, so it should almost always regenerate the first time a
+# shell is opened each day.
+autoload -Uz compinit
+_comp_files=(${ZDOTDIR:-$HOME}/.zcompdump(Nm-20))
+if (( $#_comp_files )); then
+    compinit -i -C
+else
+    compinit -i
+fi
+unset _comp_files
+
+# Use caching to make completion for commands such as dpkg and apt usable.
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
 
 zstyle ':completion:*' menu select
 # Enable case insensitive completion
@@ -67,6 +82,7 @@ setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
+setopt interactivecomments    # ignore commands that start with a comment symbol
 
 
 # Add dirs to path
@@ -86,10 +102,10 @@ if command -v kubectl &> /dev/null; then
     source <(kubectl completion zsh)
 fi
 
-if [ -d "$HOME/.volta" ]; then
-    export VOLTA_HOME="$HOME/.volta"
-    export PATH="$VOLTA_HOME/bin:$PATH"
-fi
+# if [ -d "$HOME/.volta" ]; then
+    # export VOLTA_HOME="$HOME/.volta"
+    # export PATH="$VOLTA_HOME/bin:$PATH"
+# fi
 
 if command -v git-machete &> /dev/null; then
     eval "$(git machete completion zsh)"
@@ -113,3 +129,10 @@ source $kube_ps1_path/kube-ps1.sh
 NEWLINE=$'\n'
 setopt PROMPT_SUBST
 PROMPT=${NEWLINE}'$(kube_ps1) %F{red}${vcs_info_msg_0_}%f'${NEWLINE}'%F{green}%*%f %F{blue}%8~%f'${NEWLINE}'%F{white}%n@%m%f > '
+export PATH="$HOME/.local/bin:$PATH"
+
+if command -v direnv &> /dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
+# zprof
