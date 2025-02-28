@@ -7,7 +7,7 @@ fi
 
 # alias less="bat -p"
 
-alias update="brew update -v && brew upgrade -v ; brew cleanup"
+alias update="brew update -v && brew upgrade -v -g; brew cleanup"
 alias ncdu="ncdu --color dark"
 alias tree="tree -C"
 alias uuidgen='uuidgen | tr "[:upper:]" "[:lower:]"'

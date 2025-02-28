@@ -5,10 +5,11 @@
 
 [core]
     excludesfile = ~/.gitignore
+	hooksPath = /usr/local/dd/global_hooks
 
 [diff]
     tool = vimdiff
-	renameLimit = 10000
+    renameLimit = 1000
 
 [difftool]
     prompt = true
@@ -44,7 +45,7 @@
 [alias]
     rebase = !\"echo NOOOOOOOOOO\"
 [fetch]
-    prune = true
+	prune = true
 [pull]
     rebase = false
 
@@ -56,3 +57,9 @@
     gpgSign = true
 [gpg]
     format = ssh
+
+[safe]
+	directory = /Users/chris.linstid/go/src/github.com/DataDog/dd-source/.git
+	directory = /Users/chris.linstid/src/dd-source/.git
+	directory = /Users/chris.linstid/src/dogweb/.git
+	directory = /Users/chris.linstid/src/k8s-resources/.git

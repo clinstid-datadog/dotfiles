@@ -35,7 +35,8 @@ Plug 'clinstid/vim-darkspace'
 Plug 'clinstid/vylight.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tomasiser/vim-code-dark'
-Plug 'wojciechkepka/vim-github-dark'
+" Plug 'wojciechkepka/vim-github-dark'
+Plug 'clinstid/vim-github-dark'
 Plug 'tomasr/molokai'
 Plug 'wesgibbs/vim-irblack'
 Plug 'bluz71/vim-nightfly-colors', { 'as': 'nightfly' }
@@ -43,7 +44,7 @@ Plug 'bluz71/vim-moonfly-colors', { 'as': 'moonfly' }
 
 " markdown support
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'preservim/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
 
 " Plug 'davidhalter/jedi-vim'
@@ -75,8 +76,8 @@ Plug 'elzr/vim-json'
 
 " Plug 'clinstid/vim-behave'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 "Plug 'itchyny/lightline.vim'
 
 Plug 'cespare/vim-toml', {'branch': 'main'}
@@ -114,10 +115,12 @@ Plug 'peitalin/vim-jsx-typescript'
 " Plug '/usr/local/opt/fzf'
 
 " fzf from git
-Plug '~/.fzf'
+" Plug '~/.fzf'
+" Plug 'ctrlpvim/ctrlp.vim'
 
 " fzf actual vim plugin
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 "Plug 'Raimondi/delimitMate'
 
@@ -189,14 +192,16 @@ Plug 'rust-lang/rust.vim'
 
 Plug 'Alok/notational-fzf-vim'
 
-" Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki'
+
+Plug 'chrisbra/unicode.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()
 
 " always show status bar
 set laststatus=2
-" set statusline=%F%=%{fugitive#statusline()}\ (%{strlen(&ft)?&ft:'?'},%{&fenc},%{&ff})\ \ %-9.(%l,%c%V%)\ \ %<%P
+set statusline=%t\ %{fugitive#statusline()}%=(%{strlen(&ft)?&ft:'-'}\|%{strlen(&fenc)?&fenc:'-'}\|%{strlen(&ff)?&ff:'-'})\ %-9.(L%l\ C%c%)\ %<%P
 
 " show stats in the command line
 set ruler
@@ -360,8 +365,8 @@ let g:PaperColor_Theme_Options = {
 " let g:airline_theme='darkspace'
 
 colorscheme ghdark
-let g:airline_theme='ghdark'
-let g:airline_powerline_fonts = 1
+" let g:airline_theme='ghdark'
+" let g:airline_powerline_fonts = 1
 " highlight Normal ctermbg=None guibg=None
 
 " gruvbox overrides
@@ -542,7 +547,7 @@ let g:vim_markdown_recommended_style = 0
 " Markdown autoformatting
 nmap <leader>tf :TableFormat<cr>
 
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 1
 nmap <leader>i :IndentGuidesToggle<cr>
@@ -596,15 +601,16 @@ let g:session_autosave = "yes"
 nnoremap <leader>os :OpenSession<cr>
 
 " Insert the current date
-nmap <leader>id O<esc>"=strftime("# %b %d %Y\n")<CR>P<CR>i
+nmap <leader>id O<esc>"=strftime("%b %d %Y\n")<CR>P<CR>i
 
 nnoremap <silent> <leader>nv :NV<cr>
 let g:nv_search_paths = ['~/Notes']
+let g:nv_create_note_window = 'edit'
 
 set ff=unix
 
 "let g:airline_powerline_fonts = 1
-let g:airline#extensions#coc#show_coc_status = 0
+" let g:airline#extensions#coc#show_coc_status = 0
 
 " ALE configuration
 let g:ale_completion_enabled = 1
@@ -619,11 +625,11 @@ let delimitMate_expand_cr = 1
 set directory=$HOME/.vim/swapfiles//
 set backupdir=$HOME/.vim/backup//
 
-set wildignore+=bazel-bin/*,bazel-out/*
+set wildignore+=bazel-*/*,/.git/*
 
 let g:black_linelength = 120
 
-set rtp+=/usr/local/opt/fzf
+" set rtp+=/usr/local/opt/fzf
 
 " Find note
 nmap <leader>fn :call fzf#run({'sink': 'e', 'dir': '~/Notes'})<cr>
@@ -637,25 +643,18 @@ nmap <leader>bf :Buffers<cr>
 " fzf History
 nmap <leader>h :History<cr>
 nmap <leader>mr :History<cr>
+" nmap <leader>mr :CtrlPMRU<cr>
+
+" ctrp config
+let g:ctrlp_max_files = 1000000
+" let g:ctrlp_user_command = 'fdfind --type file --exclude "bazel-*/*" "%s"'
+let g:ctrlp_clear_cache_on_exit = 0
 
 " fzf Filetypes
 nmap <leader>ft :Filetypes<cr>
 
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-endfunction
-
-function Light()
-    set background=light
-    colorscheme vylight
-    AirlineTheme minimalist
-endfunction
-
-function Dark()
-    set background=dark
-    let g:darkspace_italics = 1
-    colorscheme darkspace
-    AirlineTheme darkspace
 endfunction
 
 nmap <leader>ls :call Light()<cr>
@@ -671,10 +670,8 @@ nmap <leader>toc :GenTocGFM<cr>
 set formatoptions=tcroqln
 nnoremap <leader>k :exe 'Grg!' expand('<cword>')<cr>
 
-" nnoremap <leader>rg :<C-u>ProjectRootExe Rg<cr>
+nnoremap <leader>rg :<C-u>ProjectRootExe Rg<cr>
 nnoremap <silent> <Leader>ag :Rag <C-R><C-W><CR>
-
-nnoremap <leader>nb Ofrom nose.tools import set_trace; set_trace()<esc>
 
 set foldlevel=99
 
