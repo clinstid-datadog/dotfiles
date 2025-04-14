@@ -65,6 +65,12 @@ dotfiles:
   f_btop.conf:
     src: config/btop/btop.conf
     dst: ~/.config/btop/btop.conf
+  f_ssh_config:
+    src: ssh/config
+    dst: ~/.ssh/config
+  f_ssh_github.pub:
+    src: ssh/github.pub
+    dst: ~/.ssh/github.pub
 profiles:
   common:
     dotfiles:
@@ -103,6 +109,8 @@ profiles:
       is_workspace: true
     dotfiles:
     - f_main.code-workspace
+    - f_ssh_config
+    - f_ssh_github.pub
   chris-linstid-0:
     include:
     - workspace
@@ -110,5 +118,8 @@ profiles:
     include:
     - workspace
   chris-linstid-blue-0:
+    include:
+    - workspace
+  chris-linstid-red-0:
     include:
     - workspace
