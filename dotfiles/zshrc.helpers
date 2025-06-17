@@ -182,3 +182,12 @@ function orgstore-psql {
 
 alias rapid-bzl="pushd ~/dd/dd-source && bzl run //domains/api_platform/rapid/apps/rapid:rapid"
 alias bzl-test-rapid-cli="pushd ~/dd/dd-source && bzl test //domains/api_platform/rapid/apps/rapid/...; popd"
+
+function rapid-bin {
+    pushd $DATADOG_ROOT/dd-source
+    bzl build //domains/api_platform/rapid/apps/rapid:rapid || return
+    popd
+
+    RAPID2_BZL=True $DATADOG_ROOT/dd-source/bazel-bin/domains/api_platform/rapid/apps/rapid/rapid_/rapid $@
+}
+
