@@ -101,6 +101,12 @@ profiles:
     - macos
     dotfiles:
     - f_p10k.zsh
+  ironman:
+    include:
+    - common
+    - macos
+    dotfiles:
+    - f_p10k.zsh
   workspace:
     include:
     - common
