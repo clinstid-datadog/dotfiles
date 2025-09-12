@@ -27,7 +27,8 @@ sudo apt-get -y install \
     file \
     exuberant-ctags \
     fd-find \
-    direnv
+    direnv \
+    ripgrep
 
 sudo apt -y remove fzf
 
@@ -79,7 +80,7 @@ sudo chsh -s /bin/zsh $(whoami)
 
 ln -sf ~/dd ~/src
 
-nvim --headless +PlugInstall +qa
+~/bin/nvim --headless +PlugInstall +qa
 
 git remote set-url origin git@github.com:clinstid-datadog/dotfiles
 
