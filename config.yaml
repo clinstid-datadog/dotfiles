@@ -72,6 +72,9 @@ dotfiles:
   f_ssh_github.pub:
     src: ssh/github.pub
     dst: ~/.ssh/github.pub
+  f_init.lua:
+    src: config/nvim/init.lua
+    dst: ~/.config/nvim/init.lua
 profiles:
   common:
     dotfiles:
@@ -89,6 +92,7 @@ profiles:
     - f_gitignore
     - f_tmux.conf
     - f_btop.conf
+    - f_init.lua
   macos:
     dotfiles:
     - f_zshrc.macos
@@ -108,6 +112,7 @@ profiles:
     - macos
     dotfiles:
     - f_p10k.zsh
+    - f_init.lua
   workspace:
     include:
     - common
