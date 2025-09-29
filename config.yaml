@@ -13,6 +13,7 @@ dotfiles:
   f_zshrc:
     src: zshrc
     dst: ~/.zshrc
+    chmod: '600'
   f_zshrc.macos:
     src: zshrc.macos
     dst: ~/.zshrc.macos

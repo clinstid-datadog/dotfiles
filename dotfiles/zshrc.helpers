@@ -58,9 +58,8 @@ function btm() {
     echo "Switching back to ${branch}..."
 
     git switch $branch && \
-        git fetch origin && \
-        git merge origin $branch && \
-        git-clean-branches
+        git fetch origin $branch && \
+        git merge origin $branch
 }
 
 function git-clean-branches {

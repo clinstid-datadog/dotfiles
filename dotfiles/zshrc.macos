@@ -27,9 +27,10 @@ export PATH="${HOME?}/dd/devtools/bin:${PATH?}"
 
 # Point GOPATH to our go sources
 export GOPATH="${HOME?}/go"
+export GOBIN="${GOPATH}/bin"
 
 # Add binaries that are go install-ed to PATH
-export PATH="${GOPATH?}/bin:${PATH?}"
+export PATH="${GOBIN}:${PATH?}"
 
 # Point DATADOG_ROOT to ~/dd symlink
 export DATADOG_ROOT="${HOME?}/dd"

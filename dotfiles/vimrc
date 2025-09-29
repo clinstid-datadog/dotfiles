@@ -37,6 +37,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'tomasiser/vim-code-dark'
 " Plug 'wojciechkepka/vim-github-dark'
 Plug 'clinstid/vim-github-dark'
+Plug 'cormacrelf/vim-colors-github'
 Plug 'tomasr/molokai'
 Plug 'wesgibbs/vim-irblack'
 Plug 'bluz71/vim-nightfly-colors', { 'as': 'nightfly' }
@@ -87,6 +88,8 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pedrohdz/vim-yaml-folds'
 
 Plug 'fatih/vim-go'
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 Plug 'towolf/vim-helm'
 
@@ -135,7 +138,7 @@ Plug 'aklt/plantuml-syntax'
 Plug 'craigmac/vim-mermaid'
 
 " Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " HOCON == typesafe config
 " Plug 'GEverding/vim-hocon'
@@ -332,16 +335,42 @@ nnoremap <silent> <leader>wn :call OpenWeeklyNotes()<cr>
 set guifont=Hack\ Nerd\ Font:h12
 set termguicolors
 set fillchars="vert:\│"
-" Dark colors
-set background=dark
 
 let g:PaperColor_Theme_Options = {
-            \   'theme': {
-            \     'default': {
-            \       'transparent_background': 1
-            \     }
-            \   }
-            \ }
+\   'theme': {
+\     'default': {
+\       'transparent_background': 1
+\     }
+\   }
+\ }
+
+function Light()
+    set background=light
+    " colorscheme papercolor
+    colorscheme github
+endfunction
+
+function Dark()
+    " use a slightly darker background, like GitHub inline code blocks
+    " let g:github_colors_soft = 1
+
+    set background=dark
+    " colorscheme papercolor
+    colorscheme ghdark
+endfunction
+
+call Dark()
+
+" Dark colors
+" set background=dark
+
+" let g:PaperColor_Theme_Options = {
+            " \   'theme': {
+            " \     'default': {
+            " \       'transparent_background': 1
+            " \     }
+            " \   }
+            " \ }
 " colorscheme PaperColor
 " let g:airline_theme='serene'
 " let g:airline_powerline_fonts = 1
@@ -364,7 +393,7 @@ let g:PaperColor_Theme_Options = {
 " let g:airline_powerline_fonts = 1
 " let g:airline_theme='darkspace'
 
-colorscheme ghdark
+" colorscheme ghdark
 " let g:airline_theme='ghdark'
 " let g:airline_powerline_fonts = 1
 " highlight Normal ctermbg=None guibg=None
@@ -703,7 +732,7 @@ iab <expr> nlog strftime("_%H:%M:%S_")
 iab newtd [ ]
 nnoremap <leader>td :silent grep "\[ \]" %<cr>
 
-source ~/.vimrc-coc
+" source ~/.vimrc-coc
 
 " let g:python3_host_prog = '$HOME/.pyenv/versions/py3nvim/bin/python3'
 
