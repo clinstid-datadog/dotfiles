@@ -79,8 +79,6 @@ sudo chsh -s /bin/zsh $(whoami)
 
 ln -sf ~/dd ~/src
 
-~/bin/nvim --headless +PlugInstall +qa
-
 git remote set-url origin git@github.com:clinstid-datadog/dotfiles
 
 go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
