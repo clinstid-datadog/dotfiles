@@ -4,12 +4,12 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
-	"git",
-	"clone",
-	"--filter=blob:none",
-	"https://github.com/folke/lazy.nvim.git",
-	"--branch=stable",
-	lazypath,
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
     })
 end
 vim.opt.rtp:prepend(lazypath)
@@ -26,10 +26,10 @@ require("lazy").setup({
 
     -- comment helper
     {
-	"scrooloose/nerdcommenter",
-	config = function()
-	    vim.g.NERDSpaceDelims = 1
-	end
+    "scrooloose/nerdcommenter",
+    config = function()
+        vim.g.NERDSpaceDelims = 1
+    end
     },
     "ryanoasis/vim-devicons",
 
@@ -38,10 +38,10 @@ require("lazy").setup({
 
     -- NERDTree
     {
-	"preservim/nerdtree",
-	config = function()
-	    vim.g.NERDTreeShowHidden = 1
-	end
+    "preservim/nerdtree",
+    config = function()
+        vim.g.NERDTreeShowHidden = 1
+    end
     },
 
     -- color schemes
@@ -51,14 +51,14 @@ require("lazy").setup({
     -- markdown support
     "godlygeek/tabular",
     {
-	"preservim/vim-markdown",
-	dependencies = { "godlygeek/tabular" },
-	config = function()
-	    vim.g.vim_markdown_folding_disabled = 1
-	    vim.g.vim_markdown_new_list_item_indent = 0
-	    vim.g.vim_markdown_conceal = 2
-	    vim.g.vim_markdown_recommended_style = 0
-	end
+    "preservim/vim-markdown",
+    dependencies = { "godlygeek/tabular" },
+    config = function()
+        vim.g.vim_markdown_folding_disabled = 1
+        vim.g.vim_markdown_new_list_item_indent = 0
+        vim.g.vim_markdown_conceal = 2
+        vim.g.vim_markdown_recommended_style = 0
+    end
     },
     "mzlogin/vim-markdown-toc",
 
@@ -76,18 +76,18 @@ require("lazy").setup({
     "hail2u/vim-css3-syntax",
     "pangloss/vim-javascript",
     {
-	"othree/javascript-libraries-syntax.vim",
-	config = function()
-	    vim.g.used_javascript_libs = 'angularjs,jquery'
-	end
+    "othree/javascript-libraries-syntax.vim",
+    config = function()
+        vim.g.used_javascript_libs = 'angularjs,jquery'
+    end
     },
     "myhere/vim-nodejs-complete",
     "moll/vim-node",
     {
-	"elzr/vim-json",
-	config = function()
-	    vim.g.vim_json_syntax_conceal = 0
-	end
+    "elzr/vim-json",
+    config = function()
+        vim.g.vim_json_syntax_conceal = 0
+    end
     },
     { "cespare/vim-toml", branch = "main" },
     "lifepillar/pgsql.vim",
@@ -102,24 +102,34 @@ require("lazy").setup({
     "PProvost/vim-ps1", -- powershell
 
     -- Go
-    {
-	"fatih/vim-go",
-	config = function()
-	    vim.g.go_def_mode = 'gopls'
-	    vim.g.go_info_mode = 'gopls'
-	    vim.g.go_gopls_settings = {
-		directoryFilters =
-		{
-		    "-bazel-bin",
-		    "-bazel-out",
-		    "-bazel-testlogs",
-		    "-bazel-mypkg",
-		    "-bazel-dd-source",
-		}
-	    }
-	end
-    },
+    -- {
+        -- "fatih/vim-go",
+        -- config = function()
+            -- vim.g.go_def_mode = 'gopls'
+            -- vim.g.go_info_mode = 'gopls'
+            -- vim.g.go_gopls_settings = {
+                -- directoryFilters = {
+                    -- "-bazel-bin",
+                    -- "-bazel-out",
+                    -- "-bazel-testlogs",
+                    -- "-bazel-mypkg",
+                    -- "-bazel-dd-source",
+                    -- "-domains/eee",
+                    -- "-domains/aaa",
+                    -- "-domains/atlas",
+                    -- "-domains/seceng",
+                    -- "-domains/redapl",
+                    -- "-domains/compliance",
+                    -- "-domains/event_platform",
+                    -- "-domains/metrics",
+                -- }
+            -- }
+        -- end
+    -- },
+
     "towolf/vim-helm",
+
+    { 'neoclide/coc.nvim', branch = 'release', },
 
     -- Git integration
     "airblade/vim-gitgutter",
@@ -131,58 +141,58 @@ require("lazy").setup({
 
     -- FZF
     {
-	"junegunn/fzf",
-	build = function()
-	    vim.fn["fzf#install"]()
-	end
+    "junegunn/fzf",
+    build = function()
+        vim.fn["fzf#install"]()
+    end
     },
     {
-	"junegunn/fzf.vim",
-	dependencies = { "junegunn/fzf" },
+    "junegunn/fzf.vim",
+    dependencies = { "junegunn/fzf" },
     },
 
     -- Utilities
     {
-	"nathanaelkane/vim-indent-guides",
-	config = function()
-	    vim.g.indent_guides_enable_on_vim_startup = 0
-	    vim.g.indent_guides_guide_size = 1
-	    vim.g.indent_guides_auto_colors = 1
-	end
+    "nathanaelkane/vim-indent-guides",
+    config = function()
+        vim.g.indent_guides_enable_on_vim_startup = 1
+        -- vim.g.indent_guides_guide_size = 1
+        vim.g.indent_guides_auto_colors = 1
+    end
     },
     "pedrohdz/vim-yaml-folds",
     "shime/vim-livedown", -- Live markdown preview
     {
-	"junegunn/goyo.vim",
-	config = function()
-	    vim.g.goyo_width = '120'
-	    vim.g.goyo_height = '950%'
-	end
+    "junegunn/goyo.vim",
+    config = function()
+        vim.g.goyo_width = '120'
+        vim.g.goyo_height = '950%'
+    end
     },
     {
-	"dkarter/bullets.vim",
-	config = function()
-	    vim.g.bullets_enabled_file_types = {'markdown', 'text'}
-	    vim.g.bullets_checkbox_markers = ' x'
-	    vim.g.bullets_nested_checkboxes = 0
-	end
+    "dkarter/bullets.vim",
+    config = function()
+        vim.g.bullets_enabled_file_types = {'markdown', 'text'}
+        vim.g.bullets_checkbox_markers = ' x'
+        vim.g.bullets_nested_checkboxes = 0
+    end
     },
     "dbakker/vim-projectroot",
     "rust-lang/rust.vim",
     {
-	"vimwiki/vimwiki",
-	config = function()
-	    vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = 'md'}}
-	    vim.g.vimwiki_global_ext = 0
-	end
+    "vimwiki/vimwiki",
+    config = function()
+        vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = 'md'}}
+        vim.g.vimwiki_global_ext = 0
+    end
     },
     "chrisbra/unicode.vim",
 
     -- Bazel plugins
     "google/vim-maktaba",
     {
-	"bazelbuild/vim-bazel",
-	dependencies = { "google/vim-maktaba" },
+    "bazelbuild/vim-bazel",
+    dependencies = { "google/vim-maktaba" },
     },
     "cappyzawa/starlark.vim",
 
@@ -205,14 +215,17 @@ require("lazy").setup({
     },
 
     -- autoclose brackets and other pairs
+    -- {
+        -- 'altermo/ultimate-autopair.nvim',
+        -- event={'InsertEnter','CmdlineEnter'},
+        -- branch='v0.6', --recommended as each new version will have breaking changes
+        -- opts={
+        -- },
+    -- },
     {
-        'altermo/ultimate-autopair.nvim',
-        event={'InsertEnter','CmdlineEnter'},
-        branch='v0.6', --recommended as each new version will have breaking changes
-        opts={
-            --Config goes here
-        },
-}
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
+    },
 })
 
 -- Basic settings
@@ -221,7 +234,7 @@ vim.cmd('filetype on')
 
 -- Status line configuration
 vim.opt.laststatus = 2
-vim.opt.statusline = '%t %{fugitive#statusline()}%=(%{strlen(&ft)?&ft:\'-\'}|%{strlen(&fenc)?&fenc:\'-\'}|%{strlen(&ff)?&ff:\'-\'}) %-9.(L%l C%c%) %<%P'
+-- vim.opt.statusline = '%t %{fugitive#statusline()}%=(%{strlen(&ft)?&ft:\'-\'}|%{strlen(&fenc)?&fenc:\'-\'}|%{strlen(&ff)?&ff:\'-\'}) %-9.(L%l C%c%) %<%P'
 
 -- General settings
 vim.opt.ruler = true
@@ -234,6 +247,7 @@ vim.opt.smartindent = true
 vim.opt.copyindent = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
+vim.opt.tabstop = 4
 vim.opt.expandtab = true
 vim.opt.showmatch = true
 vim.opt.ignorecase = true
@@ -254,6 +268,7 @@ vim.opt.display:append('lastline')
 vim.opt.history = 1001
 vim.opt.showmode = false
 vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
 vim.opt.conceallevel = 0
 vim.opt.foldlevel = 99
 vim.opt.updatetime = 300
@@ -342,30 +357,13 @@ vim.g.python3_host_prog = '$HOME/.pyenv/shims/python3'
 -- Color scheme configuration
 vim.g.PaperColor_Theme_Options = {
     theme = {
-	default = {
-	    transparent_background = 1
-	}
+    default = {
+        transparent_background = 1
+    }
     }
 }
 
 -- Functions
-local function git_status()
-    local ok, result = pcall(function()
-	return vim.fn['GitGutterGetHunkSummary']()
-    end)
-    if ok and result then
-	local a, m, r = result[1], result[2], result[3]
-	if (a ~= 0) or (m ~= 0) or (r ~= 0) then
-	    return string.format('+%d ~%d -%d', a, m, r)
-	end
-    end
-    return ''
-end
-
-local function trunc_abs_path()
-    return vim.fn.pathshorten(vim.fn.expand('%:p:h'))
-end
-
 local function open_weekly_notes()
     local notes_file = vim.fn.system('~/bin/weekly_notes.py')
     vim.cmd('edit ' .. notes_file)
@@ -387,11 +385,6 @@ function! FindGitRoot()
     return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 ]])
-
-local function eatchar(pat)
-    local c = vim.fn.nr2char(vim.fn.getchar(0))
-    return vim.fn.match(c, pat) >= 0 and '' or c
-end
 
 -- Set default color scheme
 dark_theme()
@@ -578,17 +571,17 @@ autocmd('BufWritePre', {
 autocmd('FileType', {
     pattern = 'gitcommit',
     callback = function()
-	vim.fn.setpos('.', {0, 1, 1, 0})
+    vim.fn.setpos('.', {0, 1, 1, 0})
     end
 })
 
 autocmd('BufReadPost', {
     pattern = '*',
     callback = function()
-	local line = vim.fn.line([["'"]])
-	if line > 1 and line <= vim.fn.line('$') then
-	    vim.cmd([[exe "normal! g'\""]])
-	end
+    local line = vim.fn.line([["'"]])
+    if line > 1 and line <= vim.fn.line('$') then
+        vim.cmd([[exe "normal! g'\""]])
+    end
     end
 })
 
@@ -629,3 +622,38 @@ iab newtd [ ]
 
 -- Highlight overrides
 vim.cmd('highlight link CocUnusedHighlight Error')
+
+-- Lualine config
+require('lualine').setup()
+
+-- inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+-- select completions with enter
+vim.keymap.set('i', '<CR>', function()
+    if vim.fn['coc#pum#visible']() == 1 then
+        return vim.fn['coc#pum#confirm']()
+    else
+        return '\r'
+    end
+end, { silent = true, expr = true })
+
+function _G.check_back_space()
+  local col = vim.fn.col('.') - 1
+  return col == 0 or vim.fn.getline('.')[col - 1]:match('%s') ~= nil
+end
+
+-- Use Tab to trigger completion or move to the next item
+vim.keymap.set('i', '<Tab>', function()
+  if vim.fn['coc#pum#visible']() == 1 then
+    return vim.fn['coc#pum#next'](1)
+  elseif _G.check_back_space() then
+    return '<Tab>'
+  else
+    return vim.fn['coc#refresh']()
+  end
+end, { expr = true, silent = true })
+
+-- Use Shift-Tab to select the previous item
+vim.keymap.set('i', '<S-Tab>', function()
+  return vim.fn['coc#pum#visible']() == 1 and vim.fn['coc#pum#prev'](1) or '<S-Tab>'
+end, { expr = true, silent = true })
+

@@ -1,19 +1,30 @@
 {
-  "coc.preferences.extensionUpdateCheck": "weekly",
+  "extensions.updateCheck":"daily",
   "diagnostic.checkCurrentLine": true,
-  "python.linting.pylintEnabled": true,
-  "python.linting.flake8Enabled": false,
-  "pyright.enable": true,
   "suggest.noselect": true,
   "inlayHint.enable": false,
   "go.goplsOptions": {
-    "directoryFilters": [
-      "-**/node_modules",
-      "-bazel-bin",
-      "-bazel-out",
-      "-bazel-dd-source",
-      "-bazel-testlogs",
-      "-bazel-dd-go"
-    ]
-  }
+      "directoryFilters": [
+          "-**/node_modules",
+          "-**/vendor",
+          "-**/testdata",
+          "-**/.git",
+          "-**/third_party",
+          "-bazel-bin",
+          "-bazel-dd-source",
+          "-bazel-out",
+          "-bazel-testlogs",
+          "-domains/cloud_platform",
+          "-domains/workflow",
+          "-domains/eee",
+          "-domains/aaa",
+          "-domains/atlas",
+          "-domains/seceng",
+          "-domains/redapl",
+          "-domains/compliance",
+          "-domains/event_platform",
+          "-domains/metrics",
+      ],
+  },
+  "Lua.diagnostics.globals": ["vim"],
 }

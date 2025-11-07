@@ -5,6 +5,7 @@
 
 [core]
     excludesfile = ~/.gitignore
+	hooksPath = /usr/local/dd/global_hooks
 
 [diff]
     tool = vimdiff
@@ -86,3 +87,7 @@
               fi; \
           }; f"
 
+[maintenance]
+	repo = /Users/chris.linstid/go/src/github.com/DataDog/dd-source
+	repo = /Users/chris.linstid/go/src/github.com/DataDog/dd-go
+	repo = /Users/chris.linstid/go/src/github.com/DataDog/web-ui
