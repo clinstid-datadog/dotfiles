@@ -33,11 +33,10 @@ sudo apt-get -y install \
 sudo apt -y remove fzf
 
 pushd /tmp
-NVIM_VERSION="v0.9.4"
-curl -LO https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.tar.gz
+curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz
 pushd $HOME
-tar xvf /tmp/nvim-linux64.tar.gz
-ln -svf ~/nvim-linux64/bin/nvim ~/bin/nvim
+tar xvf /tmp/nvim-linux-x86_64.tar.gz
+ln -svf ~/nvim-linux-x86_64/bin/nvim ~/bin/nvim
 popd
 popd
 
