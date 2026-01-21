@@ -56,12 +56,6 @@ export GO111MODULE=auto
 export GOPRIVATE=github.com/DataDog
 # END ANSIBLE MANAGED BLOCK
 
-# AppGate
-export GOVCLOUD_APPGATE_URL="appgate://sdp.fed.d.dog/eyJzcGEiOnsibW9kZSI6IlRDUCIsIm5hbWUiOiJkZWZhdWx0Iiwia2V5IjoiMGI4NDMyZTEyYWQ5Yzk1YjY4ZDRlOTAwM2YzMDFkMmMxYTJkN2NlY2E5ZjhmZDM5MDQxOTljMjgwN2MyNjczNCJ9LCJjYUZpbmdlcnByaW50IjoiYzQ2YjA3NGU4OGJmNTk2MzlmNGVjMDFiMTIwNDE2ZjcyNTExYzM1ZmQ0YmY5M2M2Y2I3NDIyNDVjNmM2MzEwYyIsImlkZW50aXR5UHJvdmlkZXJOYW1lIjoiZ29vZ2xlIn0="
-export DATADOG_APPGATE_URL="appgate://appgate.datadoghq.com/eyJjYUZpbmdlcnByaW50IjoiN2MxMTEwNWZkNzAzNWYzMjE5NTdiYjdhZDQ0ZTIwZjc0YTZkZTNiYWM3ZWIzZTkzNWJmNjAzMDAzOTI4NmYwYyIsImlkZW50aXR5UHJvdmlkZXJOYW1lIjoiTG9naW4gV2l0aCBHb29nbGUifQ=="
-alias appgatefed="osascript -e 'quit app \"AppGate SDP\"' || true && sleep 1 && open $GOVCLOUD_APPGATE_URL && osascript -e 'tell application \"AppGate SDP\"' -e 'activate' -e 'end tell'"
-alias appgatedd="osascript -e 'quit app \"AppGate SDP\"' || true && sleep 1 && open $DATADOG_APPGATE_URL && osascript -e 'tell application \"AppGate SDP\"' -e 'activate' -e 'end tell'"
-
 alias grep=ggrep
 
 # pyenv
