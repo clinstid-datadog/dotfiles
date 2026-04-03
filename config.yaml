@@ -75,6 +75,9 @@ dotfiles:
   f_init.lua:
     src: config/nvim/init.lua
     dst: ~/.config/nvim/init.lua
+  d_lsp:
+    src: config/nvim/lsp
+    dst: ~/.config/nvim/lsp
 profiles:
   common:
     dotfiles:
@@ -123,6 +126,7 @@ profiles:
     - f_main.code-workspace
     - f_ssh_config
     - f_ssh_github.pub
+    - d_lsp
   chris-linstid-0:
     include:
     - workspace

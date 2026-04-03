@@ -637,9 +637,14 @@ autocmd('BufReadPost', {
     end
 })
 
-autocmd('BufWritePost', {
+autocmd('BufWritePre', {
     pattern = '*.py',
-    command = 'silent execute "!black %"'
+    callback = function()
+        vim.lsp.buf.format({
+            filter = function(client) return client.name == 'ruff' end,
+            async = false,
+        })
+    end,
 })
 
 -- Quickfix autocommands
@@ -675,6 +680,31 @@ iab newtd [ ]
 -- Lualine config
 require('lualine').setup()
 
+-- Show diagnostic float automatically when cursor rests on a line with an error
+autocmd('CursorHold', {
+    pattern = '*',
+    callback = function()
+        vim.diagnostic.open_float(nil, { focus = false })
+    end,
+})
+
+-- Diagnostic display
+vim.diagnostic.config({
+    float = {
+        border = 'rounded',
+        source = true,
+    },
+    signs = true,
+    underline = true,
+    virtual_text = false,
+    severity_sort = true,
+})
+
+-- Advertise nvim-cmp capabilities to all LSP servers
+vim.lsp.config('*', {
+    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+})
+
 -- Native LSP: gopls
 vim.lsp.config('gopls', {
     cmd = { 'dd-gopls' },
@@ -682,7 +712,13 @@ vim.lsp.config('gopls', {
         GOPLS_DISABLE_MODULE_LOADS = 1,
     },
 })
-vim.lsp.enable('gopls')
+if vim.fn.executable('go') == 1 then
+    vim.lsp.enable('gopls')
+end
+
+-- Native LSP: Python
+vim.lsp.enable('pyright')
+vim.lsp.enable('ruff')
 
 -- LSP keymaps (set when an LSP attaches to a buffer)
 vim.api.nvim_create_autocmd('LspAttach', {

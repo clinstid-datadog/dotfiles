@@ -29,8 +29,7 @@ dotdrop compare -p <profile>
 
 ### 2. Sync changes back to the repo
 
-Use the dotfile key from `config.yaml` with `-k`, or pass the installed file path directly.
-Use `--dry` to preview without making changes first.
+**For existing tracked files**, use `dotdrop update`:
 
 ```sh
 # Preview
@@ -42,6 +41,21 @@ dotdrop update -p <profile> -k <key>
 # By installed path instead of key
 dotdrop update -p <profile> <installed-path>
 ```
+
+**For new files or directories** that aren't yet tracked (even if they live inside a tracked
+directory like `d_nvim`), `dotdrop update` will NOT pick them up. Use `dotdrop import` instead:
+
+```sh
+# Preview
+dotdrop import -p <profile> <installed-path> --dry
+
+# Apply
+dotdrop import -p <profile> <installed-path>
+```
+
+`dotdrop import` copies the file/directory into the repo and adds a new entry to `config.yaml`
+for the current profile. Review `config.yaml` after importing to confirm the new key and profile
+assignment look correct.
 
 ### 3. Verify
 
