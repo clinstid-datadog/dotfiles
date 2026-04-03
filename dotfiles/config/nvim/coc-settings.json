@@ -26,5 +26,4 @@
           "-domains/metrics",
       ],
   },
-  "Lua.diagnostics.globals": ["vim"],
 }

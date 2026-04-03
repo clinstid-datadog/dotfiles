@@ -129,7 +129,54 @@ require("lazy").setup({
 
     "towolf/vim-helm",
 
-    { 'neoclide/coc.nvim', branch = 'release', },
+    -- { 'neoclide/coc.nvim', branch = 'release', },
+    { 'neoclide/jsonc.vim' },
+
+    -- Completion
+    {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+        },
+        config = function()
+            local cmp = require('cmp')
+            local autopairs_cmp = require('nvim-autopairs.completion.cmp')
+            cmp.setup({
+                preselect = cmp.PreselectMode.None,
+                mapping = cmp.mapping.preset.insert({
+                    ['<Tab>']     = cmp.mapping.select_next_item(),
+                    ['<S-Tab>']   = cmp.mapping.select_prev_item(),
+                    ['<CR>']      = cmp.mapping.confirm({ select = false }),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                }),
+                sources = cmp.config.sources({
+                    { name = 'nvim_lsp' },
+                    { name = 'buffer' },
+                    { name = 'path' },
+                }),
+            })
+            cmp.event:on('confirm_done', autopairs_cmp.on_confirm_done())
+        end,
+    },
+
+    -- Auto pairs
+    {
+        'windwp/nvim-autopairs',
+        event = 'InsertEnter',
+        config = function()
+            require('nvim-autopairs').setup()
+        end,
+    },
+
+    -- Auto close/rename HTML and JSX tags
+    {
+        'windwp/nvim-ts-autotag',
+        config = function()
+            require('nvim-ts-autotag').setup()
+        end,
+    },
 
     -- Git integration
     "airblade/vim-gitgutter",
@@ -552,6 +599,11 @@ autocmd({'BufNewFile', 'BufRead'}, {
     command = 'setlocal filetype=jsonc'
 })
 
+autocmd({'BufNewFile', 'BufRead'}, {
+    pattern = 'coc-settings.json',
+    command = 'setlocal filetype=jsonc'
+})
+
 -- Other autocommands
 autocmd('FileType', {
     pattern = 'markdown',
@@ -620,40 +672,30 @@ iab <expr> nlog strftime("_%H:%M:%S_")
 iab newtd [ ]
 ]])
 
--- Highlight overrides
-vim.cmd('highlight link CocUnusedHighlight Error')
-
 -- Lualine config
 require('lualine').setup()
 
--- inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
--- select completions with enter
-vim.keymap.set('i', '<CR>', function()
-    if vim.fn['coc#pum#visible']() == 1 then
-        return vim.fn['coc#pum#confirm']()
-    else
-        return '\r'
-    end
-end, { silent = true, expr = true })
+-- Native LSP: gopls
+vim.lsp.config('gopls', {
+    cmd = { 'dd-gopls' },
+    cmd_env = {
+        GOPLS_DISABLE_MODULE_LOADS = 1,
+    },
+})
+vim.lsp.enable('gopls')
 
-function _G.check_back_space()
-  local col = vim.fn.col('.') - 1
-  return col == 0 or vim.fn.getline('.')[col - 1]:match('%s') ~= nil
-end
-
--- Use Tab to trigger completion or move to the next item
-vim.keymap.set('i', '<Tab>', function()
-  if vim.fn['coc#pum#visible']() == 1 then
-    return vim.fn['coc#pum#next'](1)
-  elseif _G.check_back_space() then
-    return '<Tab>'
-  else
-    return vim.fn['coc#refresh']()
-  end
-end, { expr = true, silent = true })
-
--- Use Shift-Tab to select the previous item
-vim.keymap.set('i', '<S-Tab>', function()
-  return vim.fn['coc#pum#visible']() == 1 and vim.fn['coc#pum#prev'](1) or '<S-Tab>'
-end, { expr = true, silent = true })
-
+-- LSP keymaps (set when an LSP attaches to a buffer)
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        local opts = { buffer = ev.buf }
+        vim.keymap.set('n', 'gd',         vim.lsp.buf.definition,    opts)
+        vim.keymap.set('n', 'K',          vim.lsp.buf.hover,         opts)
+        vim.keymap.set('n', 'gr',         vim.lsp.buf.references,    opts)
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,        opts)
+        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,   opts)
+        vim.keymap.set('n', '[d',         vim.diagnostic.goto_prev,  opts)
+        vim.keymap.set('n', ']d',         vim.diagnostic.goto_next,  opts)
+        vim.keymap.set('n', '<leader>d',  vim.diagnostic.open_float, opts)
+    end,
+})
