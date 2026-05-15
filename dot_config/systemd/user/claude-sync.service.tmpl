@@ -1,0 +1,14 @@
+[Unit]
+Description=Claude Code config auto-sync
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/claude-sync
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

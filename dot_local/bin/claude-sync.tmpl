@@ -1,0 +1,122 @@
+#!/bin/bash
+# claude-sync: auto-sync ~/.claude managed files via chezmoi + git
+# Managed by chezmoi — do not edit directly (~/.local/bin/claude-sync).
+
+set -euo pipefail
+
+DOTFILES_DIR="$HOME/dotfiles"
+LOCKFILE="/tmp/claude-sync.lock"
+DEBOUNCE_SECONDS=5
+PULL_INTERVAL=60
+
+MANAGED_FILES=(
+  "$HOME/.claude/settings.json"
+  "$HOME/.claude/settings.local.json"
+  "$HOME/.claude/CLAUDE.md"
+  "$HOME/.claude/static-app-patterns.md"
+)
+
+MANAGED_DIRS=(
+  "$HOME/.claude/commands"
+  "$HOME/.claude/skills"
+{{ if not .is_workspace }}
+  "$HOME/.claude/projects/-Users-chris-linstid--claude/memory"
+  "$HOME/.claude/projects/-Users-chris-linstid-go-src-github-com-DataDog-dd-source/memory"
+  "$HOME/.claude/projects/-Users-chris-linstid-Notes/memory"
+  "$HOME/.claude/projects/-Users-chris-linstid-go-src-github-com-DataDog-web-ui/memory"
+{{ end }}
+)
+
+log() { echo "[claude-sync $(date -Iseconds)] $*" >&2; }
+
+do_pull() {
+  if git -C "$DOTFILES_DIR" pull --rebase --quiet --autostash 2>/dev/null; then
+    chezmoi apply --quiet 2>/dev/null && log "Applied remote changes."
+  else
+    log "Pull/rebase failed — skipping apply (resolve manually in $DOTFILES_DIR)."
+  fi
+}
+
+do_push() {
+  local changed_path="$1"
+  log "Change detected: $changed_path — waiting ${DEBOUNCE_SECONDS}s for quiet..."
+  sleep "$DEBOUNCE_SECONDS"
+
+  (
+    flock -n 200 || { log "Push already in progress, skipping."; exit 0; }
+
+    chezmoi re-add \
+      "${MANAGED_FILES[@]}" \
+      "${MANAGED_DIRS[@]}" \
+      2>/dev/null || true
+
+    cd "$DOTFILES_DIR"
+    if git diff --quiet HEAD 2>/dev/null; then
+      log "No changes to commit."
+      exit 0
+    fi
+
+    git add -A dot_claude/
+    git -c commit.gpgsign=false commit \
+      --quiet \
+      -m "auto: sync claude config [$(hostname -s) $(date -u +%Y-%m-%dT%H:%M:%SZ)]"
+    git push --quiet && log "Pushed successfully."
+
+  ) 200>"$LOCKFILE"
+}
+
+{{ if .is_workspace }}
+watch_loop() {
+  local watch_args=()
+  for f in "${MANAGED_FILES[@]}"; do
+    [ -e "$f" ] && watch_args+=("$f")
+  done
+  for d in "${MANAGED_DIRS[@]}"; do
+    [ -d "$d" ] && watch_args+=("-r" "$d")
+  done
+
+  inotifywait -m -e close_write,create,delete,move \
+    --format '%w%f' \
+    "${watch_args[@]}" 2>/dev/null | while read -r changed; do
+    do_push "$changed" &
+  done
+}
+{{ else }}
+watch_loop() {
+  local watch_args=("${MANAGED_FILES[@]}")
+  for d in "${MANAGED_DIRS[@]}"; do
+    [ -d "$d" ] && watch_args+=("$d")
+  done
+
+  fswatch -r \
+    --event Updated --event Created --event Removed \
+    "${watch_args[@]}" 2>/dev/null | while read -r changed; do
+    do_push "$changed" &
+  done
+}
+{{ end }}
+
+pull_loop() {
+  while true; do
+    sleep "$PULL_INTERVAL"
+    do_pull
+  done
+}
+
+cleanup() {
+  log "Shutting down..."
+  kill "$PULL_PID" "$WATCH_PID" 2>/dev/null || true
+  wait
+}
+trap cleanup TERM INT
+
+log "Starting claude-sync on $(hostname -s)..."
+do_pull
+
+pull_loop &
+PULL_PID=$!
+
+watch_loop &
+WATCH_PID=$!
+
+wait "$WATCH_PID"
