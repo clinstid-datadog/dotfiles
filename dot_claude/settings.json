@@ -1,0 +1,96 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bzl test:*)",
+      "WebFetch(domain:docs.claude.com)",
+      "Read(//Users/chris.linstid/.config/nvim/**)",
+      "Read(/Users/chris.linstid/dd/dd-source/**)",
+      "Bash(gh pr diff:*)",
+      "WebFetch(domain:code.claude.com)",
+      "Bash(git merge-base:*)",
+      "Bash(git fetch:*)",
+      "Bash(BZL_TEST_RESULTS_VIEWER_ENABLED=true bzl test:*)",
+      "Bash(bzl build:*)",
+      "Bash(bzl run:*)",
+      "Bash(git diff:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)",
+      "Bash(git -C /Users/chris.linstid/go/src/github.com/DataDog/dd-source status --short)",
+      "Bash(git -C /Users/chris.linstid/go/src/github.com/DataDog/dd-source diff --stat)",
+      "Bash(ls:*)",
+      "Bash(git reset:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(git rebase:*)",
+      "Bash(grep:*)",
+      "Bash(bzl query:*)",
+      "Bash(done)",
+      "Bash(git merge:*)",
+      "Bash(git branch:*)",
+      "Bash(ddtool auth --help:*)",
+      "Bash(ddtool auth token --help:*)",
+      "Bash(ddtool auth token:*)",
+      "Bash(ddtool --help:*)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+      "Bash(python3 -m json.tool:*)",
+      "Bash(./test-proxy.sh:*)",
+      "Bash(./ddtool-wrapper.py:*)",
+      "Bash(DDTOOL_REAL_PATH=/opt/homebrew/bin/ddtool timeout:*)",
+      "Bash(pkill:*)",
+      "Bash(ssh:*)",
+      "Bash(~/dd/experimental/users/chris.linstid/ddtool-auth-proxy/install-workspace.sh:*)",
+      "Bash(~/dd/experimental/users/chris.linstid/ddtool-auth-proxy/go/start-server.sh:*)",
+      "Bash(make build:*)",
+      "Bash(make clean:*)",
+      "mcp__atlassian__getAccessibleAtlassianResources"
+    ],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "auto"
+  },
+  "model": "sonnet[1m]",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.message' | xargs -I {} terminal-notifier -message \"{}\" -title \"Claude Code Alert\" -group \"$(pwd):notification\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -message \"Claude has completed its task in $(basename $(pwd))\" -title \"Claude Code Finished\" -group \"$(pwd):completion\""
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); echo \"$(echo \"$input\" | jq -r '.model.display_name')\""
+  },
+  "enabledPlugins": {
+    "dd@datadog-claude-plugins": true,
+    "marketplace-auto-update@datadog-claude-plugins": true,
+    "skills@datadog-claude-plugins": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "feature@datadog-claude-plugins": true,
+    "mermaid@datadog-claude-plugins": true
+  },
+  "effortLevel": "medium",
+  "theme": "auto",
+  "editorMode": "vim",
+  "verbose": true,
+  "skipAutoPermissionPrompt": true
+}
