@@ -4,20 +4,20 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/), with automati
 
 ## What's managed
 
-| Files | Target |
-|---|---|
-| `dot_zshrc`, `dot_zshrc.*` | `~/.zshrc`, `~/.zshrc.{macos,linux,helpers,aliases,dd,tokens}` |
-| `dot_gitconfig.tmpl` | `~/.gitconfig` |
-| `dot_gitignore` | `~/.gitignore` |
-| `dot_tmux.conf.tmpl` | `~/.tmux.conf` |
-| `dot_vimrc`, `dot_vimrc-coc` | `~/.vimrc`, `~/.vimrc-coc` |
-| `dot_p10k.zsh` | `~/.p10k.zsh` |
-| `dot_config/nvim/` | `~/.config/nvim/` |
-| `dot_config/btop/` | `~/.config/btop/` |
-| `dot_vim/ftplugin/` | `~/.vim/ftplugin/` |
-| `dot_claude/` | `~/.claude/` (settings, CLAUDE.md, commands, skills, memory) |
-| `private_Library/LaunchAgents/com.chris.claude-sync.plist` | `~/Library/LaunchAgents/` (macOS only) |
-| `dot_config/systemd/user/claude-sync.service` | `~/.config/systemd/user/` (Linux only) |
+| Files                                                      | Target                                                         |
+|------------------------------------------------------------|----------------------------------------------------------------|
+| `dot_zshrc`, `dot_zshrc.*`                                 | `~/.zshrc`, `~/.zshrc.{macos,linux,helpers,aliases,dd,tokens}` |
+| `dot_gitconfig.tmpl`                                       | `~/.gitconfig`                                                 |
+| `dot_gitignore`                                            | `~/.gitignore`                                                 |
+| `dot_tmux.conf.tmpl`                                       | `~/.tmux.conf`                                                 |
+| `dot_vimrc`, `dot_vimrc-coc`                               | `~/.vimrc`, `~/.vimrc-coc`                                     |
+| `dot_p10k.zsh`                                             | `~/.p10k.zsh`                                                  |
+| `dot_config/nvim/`                                         | `~/.config/nvim/`                                              |
+| `dot_config/btop/`                                         | `~/.config/btop/`                                              |
+| `dot_vim/ftplugin/`                                        | `~/.vim/ftplugin/`                                             |
+| `dot_claude/`                                              | `~/.claude/` (settings, CLAUDE.md, commands, skills, memory)   |
+| `private_Library/LaunchAgents/com.chris.claude-sync.plist` | `~/Library/LaunchAgents/` (macOS only)                         |
+| `dot_config/systemd/user/claude-sync.service`              | `~/.config/systemd/user/` (Linux only)                         |
 
 Files prefixed `private_` are deployed with mode `0600`. The `private_dot_ssh/` and `private_Library/` directories preserve their `0700` permissions.
 
@@ -25,12 +25,12 @@ Files prefixed `private_` are deployed with mode `0600`. The `private_dot_ssh/` 
 
 chezmoi auto-detects the machine type from the hostname — no manual configuration needed.
 
-| Hostname pattern | `is_workspace` | Applied files |
-|---|---|---|
-| `ironman`, `warmachine`, etc. | `false` | Common + macOS files + launchd agent |
-| `workspace-*` | `true` | Common + Linux files + systemd service |
+| Hostname pattern              | `is_workspace` | Applied files                          |
+|-------------------------------|----------------|----------------------------------------|
+| `ironman`, `warmachine`, etc. | `false`        | Common + macOS files + launchd agent   |
+| `workspace-*`                 | `true`         | Common + Linux files + systemd service |
 
-## Claude Code sync
+[##](##) Claude Code sync
 
 A background daemon (`claude-sync`) watches managed `~/.claude/` files and syncs them through this git repo:
 
