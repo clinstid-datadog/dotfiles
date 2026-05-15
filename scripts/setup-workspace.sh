@@ -53,8 +53,26 @@ fi
 
 pip3 install --user git-machete
 
-pip3 install dotdrop
-dotdrop install -f -p workspace
+# Install chezmoi if not already present
+if ! command -v chezmoi &>/dev/null; then
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+fi
+
+# Install inotifywait for file watching
+sudo apt-get -y install inotify-tools
+
+# Init chezmoi from existing local repo; is_workspace auto-detected from hostname (workspace-*)
+DOTFILES_DIR="$HOME/dotfiles"
+if [ -d "$DOTFILES_DIR/.git" ]; then
+    chezmoi init --source "$DOTFILES_DIR" --apply
+else
+    chezmoi init git@github.com:clinstid-datadog/dotfiles.git --apply
+fi
+
+# Enable the claude-sync systemd user service (also done by run_onchange script, belt+suspenders)
+systemctl --user daemon-reload
+systemctl --user enable claude-sync.service
+systemctl --user start claude-sync.service || true
 
 if [ ! -x ~/bin/kubectx ] || [ ! -x ~/bin/kubens ]; then
     rm -rf /tmp/kubectx
@@ -79,6 +97,6 @@ sudo chsh -s /bin/zsh $(whoami)
 
 ln -sf ~/dd ~/src
 
-git remote set-url origin git@github.com:clinstid-datadog/dotfiles
+git -C "$HOME/dotfiles" remote set-url origin git@github.com:clinstid-datadog/dotfiles.git
 
 go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
