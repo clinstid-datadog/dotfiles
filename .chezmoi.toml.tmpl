@@ -1,7 +1,7 @@
 sourceDir = "{{ .chezmoi.homeDir }}/dotfiles"
 
 [data]
-  is_workspace = {{ hasPrefix "workspace-" .chezmoi.hostname }}
+  is_workspace = {{ eq .chezmoi.os "linux" }}
   machine = "{{ .chezmoi.hostname }}"
 
 [git]

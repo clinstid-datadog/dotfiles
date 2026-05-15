@@ -23,12 +23,14 @@ Files prefixed `private_` are deployed with mode `0600`. The `private_dot_ssh/` 
 
 ## Machine profiles
 
-chezmoi auto-detects the machine type from the hostname — no manual configuration needed.
+chezmoi auto-detects the machine type from the OS — no manual configuration needed.
 
-| Hostname pattern              | `is_workspace` | Applied files                          |
-|-------------------------------|----------------|----------------------------------------|
-| `ironman`, `warmachine`, etc. | `false`        | Common + macOS files + launchd agent   |
-| `workspace-*`                 | `true`         | Common + Linux files + systemd service |
+| OS    | `is_workspace` | Applied files                          |
+|-------|----------------|----------------------------------------|
+| macOS | `false`        | Common + macOS files + launchd agent   |
+| Linux | `true`         | Common + Linux files + systemd service |
+
+> **Note:** The `workspace-` prefix in hostnames like `workspace-chris-linstid-blue` only exists in SSH config. The actual system hostname on a workspace is `chris-linstid-blue`, which is what chezmoi sees.
 
 [##](##) Claude Code sync
 
