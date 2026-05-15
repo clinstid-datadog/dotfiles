@@ -174,7 +174,15 @@ require("lazy").setup({
     {
         'windwp/nvim-ts-autotag',
         config = function()
-            require('nvim-ts-autotag').setup()
+            require('nvim-ts-autotag').setup({
+                per_filetype = {
+                    ["markdown"] = {
+                        enable_close = false,
+                        enable_rename = false,
+                        enable_close_on_slash = false,
+                    },
+                },
+            })
         end,
     },
 
@@ -248,7 +256,14 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         branch = 'master',
         lazy = false,
-        build = ":TSUpdate"
+        build = ":TSUpdate",
+        config = function()
+            require('nvim-treesitter.configs').setup({
+                ensure_installed = { "markdown", "markdown_inline" },
+                auto_install = true,
+                highlight = { enable = true },
+            })
+        end,
     },
 
 
@@ -326,7 +341,7 @@ vim.opt.regexpengine = 0
 vim.opt.synmaxcol = 300
 vim.opt.termguicolors = true
 vim.opt.fillchars = 'vert:│'
-vim.opt.guifont = 'Hack Nerd Font:h12'
+vim.opt.guifont = 'Hack Nerd Font:h13'
 
 -- File handling
 vim.opt.wildmenu = true
@@ -425,6 +440,7 @@ end
 local function dark_theme()
     vim.opt.background = 'dark'
     vim.cmd('colorscheme ghdark')
+    vim.cmd('highlight normal guibg=NONE')
 end
 
 vim.cmd([[

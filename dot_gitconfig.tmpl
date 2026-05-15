@@ -5,11 +5,7 @@
 
 [core]
     excludesfile = ~/.gitignore
-{{ if .is_workspace -}}
-    hooksPath = /home/bits/.global_hooks
-{{- else -}}
-    hooksPath = /usr/local/dd/global_hooks
-{{- end }}
+	hooksPath = {{ if .is_workspace }}/home/bits/.global_hooks{{ else }}/usr/local/dd/global_hooks{{ end }}
 
 [diff]
     tool = vimdiff
@@ -64,10 +60,10 @@
     format = ssh
 
 [safe]
-    directory = ~/dd/dd-source/.git
-    directory = ~/dd/dd-source/.git
-    directory = ~/dd/dogweb/.git
-    directory = ~/dd/k8s-resources/.git
+    directory = ~/go/src/github.com/DataDog/dd-source/.git
+    directory = ~/src/dd-source/.git
+    directory = ~/src/dogweb/.git
+    directory = ~/src/k8s-resources/.git
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 	insteadOf = git://github.com/
@@ -95,3 +91,5 @@
 	repo = ~/go/src/github.com/DataDog/dd-source
 	repo = ~/go/src/github.com/DataDog/dd-go
 	repo = ~/go/src/github.com/DataDog/web-ui
+	repo = ~/go/src/github.com/DataDog/experimental
+	repo = ~/go/src/github.com/DataDog/logs-backend

@@ -1,9 +1,9 @@
-{%@@ if is_workspace @@%}
+{{ if .is_workspace -}}
 # fix ssh agent when tmux is detached for workspaces
 set -g update-environment "DISPLAY KRB5CCNAME SSH_ASKPASS SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
 setenv -g SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
 
-{%@@ endif @@%}
+{{ end -}}
 # Set Ctrl-A as the prefix
 set-option -g prefix C-a
 

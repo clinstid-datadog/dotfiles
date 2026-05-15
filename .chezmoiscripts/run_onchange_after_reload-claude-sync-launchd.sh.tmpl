@@ -1,6 +1,6 @@
 #!/bin/bash
 # Reloads the claude-sync launchd agent when the plist changes.
-# Hash: {{ include "Library/LaunchAgents/com.chris.claude-sync.plist.tmpl" | sha256sum }}
+# Hash: {{ include "private_Library/LaunchAgents/com.chris.claude-sync.plist.tmpl" | sha256sum }}
 {{ if not .is_workspace }}
 launchctl unload ~/Library/LaunchAgents/com.chris.claude-sync.plist 2>/dev/null || true
 launchctl load ~/Library/LaunchAgents/com.chris.claude-sync.plist

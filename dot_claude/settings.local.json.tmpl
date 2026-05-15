@@ -1,13 +1,13 @@
 {
   "permissions": {
     "allow": [
-{{ if not .is_workspace -}}
+{{- if .is_workspace }}
+      "Bash(systemctl --user:*)",
+{{- end }}
+{{- if not .is_workspace }}
       "Bash(workspaces list:*)",
       "Bash(./claude-sync)",
-{{ end -}}
-{{ if .is_workspace -}}
-      "Bash(systemctl --user:*)",
-{{ end -}}
+{{- end }}
       "Bash(chmod:*)",
       "Bash(bash:*)",
       "Bash(ssh:*)"

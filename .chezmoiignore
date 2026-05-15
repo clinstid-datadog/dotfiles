@@ -5,53 +5,53 @@ install.sh
 
 # macOS-only files — skip on workspaces
 {{ if .is_workspace }}
-dot_zshrc.macos
+.zshrc.macos
 Library/**
 {{ end }}
 
 # Linux-only files — skip on macOS
 {{ if not .is_workspace }}
-dot_zshrc.linux
-dot_config/procps/toprc
-dot_config/systemd/**
+.zshrc.linux
+.config/procps
+.config/systemd
 {{ end }}
 
 # Workspace-only files — skip on macOS
 {{ if not .is_workspace }}
-dot_ssh/config
-dot_ssh/github.pub
+.ssh/config
+.ssh/github.pub
 main.code-workspace
-dot_config/nvim/lsp/**
+.config/nvim/lsp/**
 {{ end }}
 
 # Project memory dirs are macOS-specific path-encoded dirs; skip on workspaces
 {{ if .is_workspace }}
-dot_claude/projects/**
+.claude/projects/**
 {{ end }}
 
 # nvim lazy plugin lock file — machine-local, not synced
-dot_config/nvim/lazy-lock.json
+.config/nvim/lazy-lock.json
 
 # ~/.claude ephemeral and machine-local files
-dot_claude/.watchman-cookie-*
-dot_claude/.last-cleanup
-dot_claude/.update.lock
-dot_claude/history.jsonl
-dot_claude/sessions/**
-dot_claude/session-env/**
-dot_claude/file-history/**
-dot_claude/cache/**
-dot_claude/paste-cache/**
-dot_claude/shell-snapshots/**
-dot_claude/backups/**
-dot_claude/telemetry/**
-dot_claude/todos/**
-dot_claude/plugins/**
-dot_claude/downloads/**
-dot_claude/debug/**
-dot_claude/ide/**
-dot_claude/plans/**
-dot_claude/policy-limits.json
-dot_claude/stats-cache.json
-dot_claude/statsig/**
-dot_claude/mcp-needs-auth-cache.json
+.claude/.watchman-cookie-*
+.claude/.last-cleanup
+.claude/.update.lock
+.claude/history.jsonl
+.claude/sessions/**
+.claude/session-env/**
+.claude/file-history/**
+.claude/cache/**
+.claude/paste-cache/**
+.claude/shell-snapshots/**
+.claude/backups/**
+.claude/telemetry/**
+.claude/todos/**
+.claude/plugins/**
+.claude/downloads/**
+.claude/debug/**
+.claude/ide/**
+.claude/plans/**
+.claude/policy-limits.json
+.claude/stats-cache.json
+.claude/statsig/**
+.claude/mcp-needs-auth-cache.json
