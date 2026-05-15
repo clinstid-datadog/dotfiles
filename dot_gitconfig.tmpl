@@ -5,11 +5,11 @@
 
 [core]
     excludesfile = ~/.gitignore
-{%@@ if is_workspace @@%}
+{{ if .is_workspace -}}
     hooksPath = /home/bits/.global_hooks
-{%@@ else @@%}
-	hooksPath = /usr/local/dd/global_hooks
-{%@@ endif @@%}
+{{- else -}}
+    hooksPath = /usr/local/dd/global_hooks
+{{- end }}
 
 [diff]
     tool = vimdiff
