@@ -1,4 +1,4 @@
-sourceDir = "{{ .chezmoi.homeDir }}/dotfiles"
+sourceDir = "{{ env "HOME" }}/dotfiles"
 
 [data]
   is_workspace = {{ eq .chezmoi.os "linux" }}
