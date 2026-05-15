@@ -55,7 +55,7 @@ pip3 install --user git-machete
 
 # Install chezmoi if not already present
 if ! command -v chezmoi &>/dev/null; then
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+    go install github.com/twpayne/chezmoi@latest
 fi
 
 # Install inotifywait for file watching
