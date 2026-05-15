@@ -103,15 +103,19 @@ pull_loop() {
   done
 }
 
+PULL_PID=""
+WATCH_PID=""
+
 cleanup() {
   log "Shutting down..."
-  kill "$PULL_PID" "$WATCH_PID" 2>/dev/null || true
+  [[ -n "${PULL_PID:-}" ]] && kill "$PULL_PID" 2>/dev/null || true
+  [[ -n "${WATCH_PID:-}" ]] && kill "$WATCH_PID" 2>/dev/null || true
   wait
 }
-trap cleanup TERM INT
+trap cleanup TERM INT EXIT
 
 log "Starting claude-sync on $(hostname -s)..."
-do_pull
+do_pull || true
 
 pull_loop &
 PULL_PID=$!

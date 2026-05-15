@@ -2,6 +2,9 @@
 # Reloads the claude-sync launchd agent when the plist changes.
 # Hash: {{ include "private_Library/LaunchAgents/com.chris.claude-sync.plist.tmpl" | sha256sum }}
 {{ if not .is_workspace }}
-launchctl unload ~/Library/LaunchAgents/com.chris.claude-sync.plist 2>/dev/null || true
-launchctl load ~/Library/LaunchAgents/com.chris.claude-sync.plist
+PLIST="$HOME/Library/LaunchAgents/com.chris.claude-sync.plist"
+GUI_DOMAIN="gui/$(id -u)"
+
+launchctl bootout "${GUI_DOMAIN}/com.chris.claude-sync" 2>/dev/null || true
+launchctl bootstrap "${GUI_DOMAIN}" "$PLIST"
 {{ end }}
