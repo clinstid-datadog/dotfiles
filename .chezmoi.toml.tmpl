@@ -1,0 +1,9 @@
+sourceDir = "{{ .chezmoi.homeDir }}/dotfiles"
+
+[data]
+  is_workspace = {{ hasPrefix "workspace-" .chezmoi.hostname }}
+  machine = "{{ .chezmoi.hostname }}"
+
+[git]
+  autoCommit = false
+  autoPush   = false

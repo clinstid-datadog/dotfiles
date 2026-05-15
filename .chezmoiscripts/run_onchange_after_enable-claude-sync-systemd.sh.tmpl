@@ -1,0 +1,8 @@
+#!/bin/bash
+# Enables and restarts the claude-sync systemd service when the unit file changes.
+# Hash: {{ include "dot_config/systemd/user/claude-sync.service.tmpl" | sha256sum }}
+{{ if .is_workspace }}
+systemctl --user daemon-reload
+systemctl --user enable claude-sync.service
+systemctl --user restart claude-sync.service
+{{ end }}
