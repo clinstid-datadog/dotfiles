@@ -59,7 +59,7 @@ export GOPRIVATE=github.com/DataDog
 alias grep=ggrep
 
 # pyenv
-eval "$(pyenv init -)"
+eval "$(pyenv init --path - )"
 eval "$(pyenv virtualenv-init -)"
 
 source_if_exists /opt/homebrew/share/zsh/site-functions/_ddtool

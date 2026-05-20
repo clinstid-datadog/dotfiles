@@ -1,4 +1,7 @@
+# Uncomment to enable profiling (also uncomment at the end of the file)
 # zmodload zsh/zprof
+# Uncomment to log every command for debugging
+# setopt verbose
 
 # Language
 export LC_ALL=en_US.UTF-8
@@ -154,4 +157,6 @@ export SCFW_HOME="$HOME/.scfw"
 # END SCFW MANAGED BLOCK
 
 source_if_exists "$HOME/.yarn/switch/env"
+
+# Uncomment to enable profiling
 # zprof
