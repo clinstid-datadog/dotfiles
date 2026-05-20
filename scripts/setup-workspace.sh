@@ -21,7 +21,6 @@ sudo apt-get -y install \
     silversearcher-ag \
     socat \
     telnet \
-    tmux \
     elinks \
     bash-completion \
     file \
@@ -49,6 +48,15 @@ if [ ! -x /usr/local/bin/btop ]; then
     popd
     rm -rf btop btop-x86_64-linux-musl.tbz
     popd
+fi
+
+# Install tmux static binary if missing or older than 3.3 (required for allow-passthrough)
+TMUX_MIN="3.3"
+TMUX_CURRENT=$(tmux -V 2>/dev/null | awk '{print $2}')
+if [ -z "$TMUX_CURRENT" ] || [ "$(printf '%s\n' "$TMUX_MIN" "$TMUX_CURRENT" | sort -V | head -1)" != "$TMUX_MIN" ]; then
+    TMUX_TAG=$(curl -s https://api.github.com/repos/pythops/tmux-linux-binary/releases/latest | grep '"tag_name"' | sed -E 's/.*"tag_name": "([^"]+)".*/\1/')
+    sudo curl -fsSL "https://github.com/pythops/tmux-linux-binary/releases/download/${TMUX_TAG}/tmux-linux-x86_64" -o /usr/local/bin/tmux
+    sudo chmod +x /usr/local/bin/tmux
 fi
 
 pip3 install --user git-machete
