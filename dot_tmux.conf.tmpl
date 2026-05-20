@@ -226,3 +226,6 @@ set -g message-style "bold fg=colour232 bg=colour166"
 set-option -sa terminal-overrides ',xterm-256color:RGB'
 # }
 set -g default-terminal "xterm-256color"
+
+# allow-passthrough enables the terminal codes to get notifications from claude
+set -g allow-passthrough on
