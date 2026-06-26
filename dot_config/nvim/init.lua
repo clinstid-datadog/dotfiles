@@ -47,20 +47,37 @@ require("lazy").setup({
     -- color schemes
     "clinstid/vim-github-dark",
     "cormacrelf/vim-colors-github",
+    "projekt0n/github-nvim-theme",
 
     -- markdown support
-    "godlygeek/tabular",
-    {
-    "preservim/vim-markdown",
-    dependencies = { "godlygeek/tabular" },
-    config = function()
-        vim.g.vim_markdown_folding_disabled = 1
-        vim.g.vim_markdown_new_list_item_indent = 0
-        vim.g.vim_markdown_conceal = 2
-        vim.g.vim_markdown_recommended_style = 0
-    end
-    },
-    "mzlogin/vim-markdown-toc",
+    -- "godlygeek/tabular",
+    -- {
+    -- "preservim/vim-markdown",
+    -- dependencies = { "godlygeek/tabular" },
+    -- config = function()
+        -- vim.g.vim_markdown_folding_disabled = 1
+        -- vim.g.vim_markdown_new_list_item_indent = 0
+        -- vim.g.vim_markdown_conceal = 2
+        -- vim.g.vim_markdown_recommended_style = 0
+    -- end
+    -- },
+    -- "mzlogin/vim-markdown-toc",
+	{
+		'MeanderingProgrammer/render-markdown.nvim',
+		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },            -- if you use the mini.nvim suite
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+		---@module 'render-markdown'
+		---@type render.md.UserConfig
+		opts = {
+		    enabled = true,
+		    render_modes = {'n', 'c', 't'},
+		    heading = {
+		        enabled = true,
+		        position = "inline",
+            },
+        },
+	},
 
     -- Python
     "hynek/vim-python-pep8-indent",
@@ -216,7 +233,7 @@ require("lazy").setup({
     end
     },
     "pedrohdz/vim-yaml-folds",
-    "shime/vim-livedown", -- Live markdown preview
+    -- "shime/vim-livedown", -- Live markdown preview
     {
     "junegunn/goyo.vim",
     config = function()
@@ -235,11 +252,11 @@ require("lazy").setup({
     "dbakker/vim-projectroot",
     "rust-lang/rust.vim",
     {
-    "vimwiki/vimwiki",
-    config = function()
-        vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = 'md'}}
-        vim.g.vimwiki_global_ext = 0
-    end
+    -- "vimwiki/vimwiki",
+    -- config = function()
+        -- vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = 'md'}}
+        -- vim.g.vimwiki_global_ext = 0
+    -- end
     },
     "chrisbra/unicode.vim",
 
@@ -254,14 +271,13 @@ require("lazy").setup({
     -- treesitter
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = 'master',
+        branch = 'main',
         lazy = false,
         build = ":TSUpdate",
         config = function()
-            require('nvim-treesitter.configs').setup({
-                ensure_installed = { "markdown", "markdown_inline" },
+            require('nvim-treesitter').setup({
+                ensure_installed = { "markdown", "markdown_inline", "html", "yaml" },
                 auto_install = true,
-                highlight = { enable = true },
             })
         end,
     },
@@ -288,6 +304,18 @@ require("lazy").setup({
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
+	{
+		"f-person/auto-dark-mode.nvim",
+		opts = {
+		    set_dark_mode = function()
+		        dark_theme()
+            end,
+		    set_light_mode = function()
+		        light_theme()
+            end,
+            fallback = "dark",
+		}
+	},
 })
 
 -- Basic settings
@@ -329,8 +357,8 @@ vim.opt.sidescrolloff = 5
 vim.opt.display:append('lastline')
 vim.opt.history = 1001
 vim.opt.showmode = false
-vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
+-- vim.opt.cursorline = true
+-- vim.opt.cursorcolumn = true
 vim.opt.conceallevel = 0
 vim.opt.foldlevel = 99
 vim.opt.updatetime = 300
@@ -419,9 +447,9 @@ vim.g.python3_host_prog = '$HOME/.pyenv/shims/python3'
 -- Color scheme configuration
 vim.g.PaperColor_Theme_Options = {
     theme = {
-    default = {
-        transparent_background = 1
-    }
+        default = {
+            transparent_background = 1
+        }
     }
 }
 
@@ -431,15 +459,15 @@ local function open_weekly_notes()
     vim.cmd('edit ' .. notes_file)
 end
 
-local function light_theme()
+function light_theme()
     vim.opt.background = 'light'
-    vim.cmd('colorscheme github')
+    vim.cmd('colorscheme github_light_default')
     vim.cmd('highlight normal guibg=NONE')
 end
 
-local function dark_theme()
+function dark_theme()
     vim.opt.background = 'dark'
-    vim.cmd('colorscheme ghdark')
+    vim.cmd('colorscheme github_dark_default')
     vim.cmd('highlight normal guibg=NONE')
 end
 
@@ -450,7 +478,7 @@ endfunction
 ]])
 
 -- Set default color scheme
-dark_theme()
+-- dark_theme()
 
 -- Key mappings
 vim.g.mapleader = '\\'
