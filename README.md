@@ -122,20 +122,46 @@ journalctl --user -u claude-sync -f
 chezmoi update          # git pull + chezmoi apply in one command
 ```
 
+### I edited an installed file — how do I commit it?
+
+This is the most common workflow. For non-templated files (e.g. `~/.config/nvim/`, `~/.zshrc`):
+
+```sh
+# 1. Pull the installed changes back into the repo source
+chezmoi re-add ~/.config/nvim/   # or whatever file/dir you changed
+
+# 2. Commit and push
+cd ~/dotfiles
+git add dot_config/nvim/         # repo path uses dot_ prefix
+git commit -m "nvim: description of changes"
+git push
+```
+
+The sync daemon on other machines will pick it up within 60 seconds.
+
+> **Templated files** (`.tmpl` suffix in the repo — `dot_gitconfig.tmpl`, `dot_tmux.conf.tmpl`, etc.)
+> cannot use `chezmoi re-add`. Instead run `chezmoi diff ~/.gitconfig` to see what changed, then
+> manually apply those changes to the template file in the repo.
+
 ### Add a new file to be managed
 
 ```sh
 chezmoi add ~/.some-new-config
-chezmoi re-add ~/.some-new-config   # after editing the installed file
+cd ~/dotfiles
+git add -A
+git commit -m "add ~/.some-new-config"
+git push
 ```
 
-### Edit a managed file
-
-Either edit in-place and run `chezmoi re-add`, or edit the source directly:
+### Edit a file from the source side
 
 ```sh
-chezmoi edit ~/.zshrc   # opens source file in $EDITOR
-chezmoi apply           # deploy changes
+chezmoi edit ~/.zshrc   # opens repo source file in $EDITOR
+chezmoi apply           # deploy to installed location
+cd ~/dotfiles
+git add dot_zshrc
+git commit -m "zsh: description of changes"
+git push
 ```
 
 ### Check what's out of sync
@@ -144,17 +170,6 @@ chezmoi apply           # deploy changes
 chezmoi diff
 chezmoi status
 ```
-
-### Push a manual change
-
-```sh
-cd ~/dotfiles
-git add -A
-git commit -m "..."
-git push
-```
-
-The sync daemon on other machines will pick it up within 60 seconds.
 
 ### Add a new Claude memory directory to sync
 

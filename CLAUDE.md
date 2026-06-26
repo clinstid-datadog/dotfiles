@@ -2,103 +2,103 @@
 
 ## Overview
 
-Dotfiles are managed with [dotdrop](https://dotdrop.readthedocs.io/en/latest/). The config is at
-`config.yaml`. Dotdrop uses `nolink` mode — it **copies** files rather than symlinking, so the
-installed files (e.g. `~/.config/nvim/init.lua`) and the repo files
-(e.g. `dotfiles/config/nvim/init.lua`) are separate copies.
+Dotfiles are managed with [chezmoi](https://www.chezmoi.io/). The source directory is `~/dotfiles`
+(this repo). chezmoi copies/templates files to their installed locations — the repo files and
+installed files are separate copies.
 
-All dotdrop commands should be run from the root of this repo.
+Files in the repo use chezmoi naming conventions:
+- `dot_foo` → `~/.foo`
+- `dot_config/bar/` → `~/.config/bar/`
+- `private_dot_foo` → `~/.foo` (deployed with mode `0600`)
+- `foo.tmpl` → templated file (chezmoi renders before deploying)
 
-## Profiles
+## Machine detection
 
-Profiles are defined in `config.yaml`. Check `config.yaml` to find the right profile — machine
-profiles are typically named after hostnames (e.g. `chris-linstid-blue-0`) and inherit from a
-parent profile like `workspace`. If the hostname doesn't match a profile directly, use the parent
-profile (e.g. `workspace`). Specify the profile with `-p <profile>` on all dotdrop commands.
+chezmoi auto-detects the machine type from the OS — no profile flags needed.
+
+| OS    | `is_workspace` | Notes                          |
+|-------|----------------|--------------------------------|
+| macOS | `false`        | Common + macOS-specific files  |
+| Linux | `true`         | Common + Linux-specific files  |
 
 ## Workflow: syncing changes back to the repo
 
-When dotfiles have been modified at their installed locations, use dotdrop to sync them back before
+When dotfiles have been modified at their installed locations, use chezmoi to sync them back before
 committing.
 
 ### 1. See what changed
 
 ```sh
-dotdrop compare -p <profile>
+chezmoi diff     # shows diff between repo source and installed files
+chezmoi status   # shows which files differ
 ```
 
 ### 2. Sync changes back to the repo
 
-**For existing tracked files**, use `dotdrop update`:
+**For existing tracked files:**
 
 ```sh
-# Preview
-dotdrop update -p <profile> -k <key> --dry
-
-# Apply
-dotdrop update -p <profile> -k <key>
-
-# By installed path instead of key
-dotdrop update -p <profile> <installed-path>
+chezmoi re-add ~/.some-file
 ```
 
-**For new files or directories** that aren't yet tracked (even if they live inside a tracked
-directory like `d_nvim`), `dotdrop update` will NOT pick them up. Use `dotdrop import` instead:
+**For new files not yet tracked:**
 
 ```sh
-# Preview
-dotdrop import -p <profile> <installed-path> --dry
-
-# Apply
-dotdrop import -p <profile> <installed-path>
+chezmoi add ~/.some-new-file
 ```
-
-`dotdrop import` copies the file/directory into the repo and adds a new entry to `config.yaml`
-for the current profile. Review `config.yaml` after importing to confirm the new key and profile
-assignment look correct.
 
 ### 3. Verify
 
 ```sh
-dotdrop compare -p <profile>
+chezmoi diff
 ```
 
 Should show no differences for the updated files.
 
 ## Templated files
 
-Some files use Jinja2 templating with dotdrop's custom delimiters (`{{@@ ... @@}}` for variables,
-`{%@@ ... @@%}` for control flow). Currently templated files in this repo:
+Templated files have a `.tmpl` suffix in the repo (e.g. `dot_gitconfig.tmpl`,
+`dot_tmux.conf.tmpl`). chezmoi renders them before deploying, so the installed file contains the
+rendered output with template directives resolved.
 
-- `dotfiles/gitconfig` — uses `{%@@ if is_workspace @@%}` to set different git config per host
-- `dotfiles/tmux.conf` — uses `{%@@ if is_workspace @@%}` for workspace-specific settings
-
-**`dotdrop update` cannot be used on templated files.** The installed file contains rendered output
-(template directives resolved), so running update would overwrite the template with the rendered
-version, destroying the template logic.
+**`chezmoi re-add` cannot be used on templated files** — it would overwrite the template with the
+rendered version, destroying the template logic.
 
 For templated files, either:
-- Edit the template directly in the repo (`dotfiles/` directory), or
-- Use `dotdrop update -p <profile> -k <key> --show-patch` to generate a diff of what changed in
-  the installed file, then manually apply those changes to the template in the repo.
+- Edit the template directly in the repo (`~/dotfiles/` directory), or
+- Run `chezmoi diff` to see what changed in the installed file, then manually apply those changes
+  to the template.
+
+Currently templated files in this repo:
+
+- `dot_gitconfig.tmpl` — uses `{{ if .is_workspace }}` to set different git config per machine type
+- `dot_tmux.conf.tmpl` — uses `{{ if .is_workspace }}` for workspace-specific settings
+- `dot_claude/settings.local.json.tmpl` — per-machine Claude Code settings
+- `dot_local/bin/executable_claude-sync.tmpl` — the claude-sync daemon script
 
 ## Workflow: committing and pushing
 
 This is a single-user repo — commit directly to `main`.
 
 ```sh
+cd ~/dotfiles
 git add <files>
 git commit -m "Description of changes"
 git push
 ```
 
-## Key dotfile keys (from config.yaml)
+Note: the `claude-sync` daemon automatically commits and pushes changes to managed `~/.claude/`
+files. For all other dotfiles, commit manually after running `chezmoi re-add`.
 
-| Key           | Installed path      | Repo path                    | Templated |
-|---------------|---------------------|------------------------------|-----------|
-| `d_nvim`      | `~/.config/nvim/`   | `dotfiles/config/nvim/`      | No        |
-| `f_zshrc`     | `~/.zshrc`          | `dotfiles/zshrc`             | No        |
-| `f_tmux.conf` | `~/.tmux.conf`      | `dotfiles/tmux.conf`         | Yes       |
-| `f_gitconfig` | `~/.gitconfig`      | `dotfiles/gitconfig`         | Yes       |
+## Key file mapping
 
-See `config.yaml` for the full list.
+| Repo path                        | Installed path               | Templated |
+|----------------------------------|------------------------------|-----------|
+| `dot_zshrc`                      | `~/.zshrc`                   | No        |
+| `dot_gitconfig.tmpl`             | `~/.gitconfig`               | Yes       |
+| `dot_tmux.conf.tmpl`             | `~/.tmux.conf`               | Yes       |
+| `dot_vimrc`                      | `~/.vimrc`                   | No        |
+| `dot_p10k.zsh`                   | `~/.p10k.zsh`                | No        |
+| `dot_config/nvim/`               | `~/.config/nvim/`            | No        |
+| `dot_claude/`                    | `~/.claude/`                 | Partial   |
+| `private_dot_ssh/`               | `~/.ssh/`                    | No        |
