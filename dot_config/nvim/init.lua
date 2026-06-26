@@ -478,7 +478,7 @@ endfunction
 ]])
 
 -- Set default color scheme
--- dark_theme()
+dark_theme()
 
 -- Key mappings
 vim.g.mapleader = '\\'
