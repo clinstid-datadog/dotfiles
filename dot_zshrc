@@ -65,6 +65,7 @@ autoload -U colors && colors
 
 # Editor
 export EDITOR="nvim"
+export VISUAL="nvim"
 
 # set vi editing mode
 autoload -Uz edit-command-line
@@ -116,8 +117,6 @@ fi
 if command -v git-machete &> /dev/null; then
     eval "$(git machete completion zsh)"
 fi
-
-SCRIPT=~/dd/winter/winter/completion-scripts/winter_completion.zsh && test -f $SCRIPT && source $SCRIPT
 
 # Git branch info in prompt
 autoload -Uz vcs_info
